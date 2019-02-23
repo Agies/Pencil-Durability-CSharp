@@ -5,6 +5,13 @@ namespace PencilDurability.Console
 {
     public class Pencil
     {
+        public int Durability { get; }
+
+        public Pencil()
+        {
+            Durability = 100;
+        }
+        
         public void WriteOn(string text, ISurface surface)
         {
             if (surface == null) throw new NothingToWriteOnException();
@@ -14,6 +21,7 @@ namespace PencilDurability.Console
                 surface.Write(c);
             }
         }
+
     }
 
     public class NothingToWriteOnException: Exception
