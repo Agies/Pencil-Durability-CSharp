@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net.WebSockets;
 
 namespace PencilDurability.Console
 {
@@ -40,8 +41,14 @@ namespace PencilDurability.Console
 
         public void EraseOn<T>(string text, T erasable) where T: IErasable, IViewable
         {
-            erasable.Erase(text);
-            EraserDurability = (uint) (EraserDurability - text.Count(c => !char.IsWhiteSpace(c)));
+            var length = text.Length - 1;
+            var startIndex = erasable.Show().LastIndexOf(text, StringComparison.Ordinal);
+            for (var i = length; i >= 0; i--)
+            {
+                var character = text[i];
+                erasable.Erase(startIndex + i);
+                EraserDurability -= char.IsWhiteSpace(character) ? 0u : 1u;
+            }
         }
     }
 

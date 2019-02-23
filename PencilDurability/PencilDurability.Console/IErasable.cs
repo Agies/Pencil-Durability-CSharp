@@ -2,7 +2,7 @@ namespace PencilDurability.Console
 {
     public interface IErasable
     {
-        void Erase(string text);
+        void Erase(int position);
     }
 
     public interface IViewable

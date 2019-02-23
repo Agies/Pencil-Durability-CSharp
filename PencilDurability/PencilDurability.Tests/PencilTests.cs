@@ -204,9 +204,17 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenInstructedToErase_ThenThePencilWillCallEraseOnTheSurface()
         {
-            _erasableMock.Setup(t => t.Erase("Food"));
+            _erasableMock.Setup(t => t.Show()).Returns("Food");
+            var sequence = new MockSequence();
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(1));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(0));
             _sut.EraseOn("Food", _erasableMock.Object);
-            _erasableMock.Verify(t => t.Erase("Food"), Times.Once);
+            _erasableMock.Verify(t => t.Erase(3), Times.Once);
+            _erasableMock.Verify(t => t.Erase(2), Times.Once);
+            _erasableMock.Verify(t => t.Erase(1), Times.Once);
+            _erasableMock.Verify(t => t.Erase(0), Times.Once);
         }
 
         [Fact]
@@ -219,7 +227,8 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithOneCharacter_ThenTheDurabilityWillGoDownByOne()
         {
-            _erasableMock.Setup(t => t.Erase("T"));
+            _erasableMock.Setup(t => t.Show()).Returns("T");
+            _erasableMock.Setup(t => t.Erase(0));
             _sut.EraseOn("T", _erasableMock.Object);
             Assert.Equal(19u, _sut.EraserDurability);
         }
@@ -227,7 +236,12 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithMultipleCharacters_ThenTheDurabilityWillGoDownByOneForEachCharacter()
         {
-            _erasableMock.Setup(t => t.Erase("Time"));
+            _erasableMock.Setup(t => t.Show()).Returns("Time");
+            var sequence = new MockSequence();
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(1));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(0));
             _sut.EraseOn("Time", _erasableMock.Object);
             Assert.Equal(16u, _sut.EraserDurability);
         }
@@ -235,7 +249,15 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithWhitespaceCharacters_ThenTheDurabilityWillNotGoDownByOneForEachCharacter()
         {
-            _erasableMock.Setup(t => t.Erase("\nTime\t "));
+            _erasableMock.Setup(t => t.Show()).Returns("\nTime\t ");
+            var sequence = new MockSequence();
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(6));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(5));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(4));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(1));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(0));
             _sut.EraseOn("\nTime\t ", _erasableMock.Object);
             Assert.Equal(16u, _sut.EraserDurability);
         }

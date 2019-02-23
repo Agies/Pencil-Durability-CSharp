@@ -17,10 +17,9 @@ namespace PencilDurability.Console
             _buffer.Append(text);
         }
 
-        public void Erase(string text)
+        public void Erase(int position)
         {
-            if (string.IsNullOrEmpty(text)) return;
-            _buffer.Replace(text, "".PadRight(text.Length), _buffer.ToString().LastIndexOf(text, StringComparison.Ordinal), text.Length);
+            _buffer[position] = ' ';
         }
 
         public string Show()
