@@ -269,5 +269,17 @@ namespace PencilDurability.Tests
             _sut.EraseOn("Flute ", _erasableMock.Object);
             Assert.Equal(20u, _sut.EraserDurability);
         }
+        
+        [Fact]
+        public void GivenAPencil_WhenEraseIsCalledWithNoDurability_ThenNothingWillHappen()
+        {
+            _sut = new Pencil(eraserDurability: 0);
+            _erasableMock.Setup(t => t.Show()).Returns("here");
+            _sut.EraseOn("here", _erasableMock.Object);
+            _erasableMock.Verify(t => t.Erase(0), Times.Never);
+            _erasableMock.Verify(t => t.Erase(1), Times.Never);
+            _erasableMock.Verify(t => t.Erase(2), Times.Never);
+            _erasableMock.Verify(t => t.Erase(3), Times.Never);
+        }
     }
 }

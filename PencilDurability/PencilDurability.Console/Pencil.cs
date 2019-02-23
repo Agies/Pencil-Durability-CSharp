@@ -46,6 +46,7 @@ namespace PencilDurability.Console
             var length = text.Length - 1;
             for (var i = length; i >= 0; i--)
             {
+                if (EraserDurability == 0) return;
                 var character = text[i];
                 erasable.Erase(startIndex + i);
                 EraserDurability -= char.IsWhiteSpace(character) ? 0u : 1u;
