@@ -85,5 +85,13 @@ namespace PencilDurability.Tests
             var strongerPencil = new Pencil(4000);
             Assert.NotInRange(strongerPencil.Durability, int.MinValue, _sut.Durability);
         }
+
+        [Fact]
+        public void GiveAPencil_WhenCharactersAreWritten_ThenTheDurabilityWillReduce()
+        {
+            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 's')));
+            _sut.WriteOn("s", _surfaceMoq.Object);
+            Assert.Equal(99, _sut.Durability);
+        }
     }
 }

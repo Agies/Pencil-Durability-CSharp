@@ -5,7 +5,7 @@ namespace PencilDurability.Console
 {
     public class Pencil
     {
-        public int Durability { get; }
+        public int Durability { get; private set; }
 
         public Pencil(int durability = 100)
         {
@@ -18,6 +18,7 @@ namespace PencilDurability.Console
             if (text == null) return;
             foreach (var c in text)
             {
+                Durability--;
                 surface.Write(c);
             }
         }
