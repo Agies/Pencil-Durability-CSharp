@@ -1,4 +1,5 @@
 using PencilDurability.Console;
+using Xunit;
 
 namespace PencilDurability.Tests
 {
@@ -9,6 +10,13 @@ namespace PencilDurability.Tests
         public PaperTests()
         {
             _sut = new Paper();
+        }
+
+        [Fact]
+        public void GivenASheetOfPaper_WhenShown_ThenAStringOfCharactersCanBeRead()
+        {
+            var result = _sut.Show();
+            Assert.Equal("She sells sea shells", result);
         }
     }
 }

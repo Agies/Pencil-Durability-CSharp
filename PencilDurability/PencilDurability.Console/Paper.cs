@@ -6,5 +6,10 @@ namespace PencilDurability.Console
         {
             
         }
+
+        public string Show()
+        {
+            return "She sells sea shells";
+        }
     }
 }
