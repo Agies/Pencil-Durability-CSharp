@@ -8,10 +8,12 @@ namespace PencilDurability.Tests
     {
         private Pencil _sut;
         private readonly Mock<ISurface> _surfaceMoq;
+        private readonly Mock<ISurface> _forgivingMoq;
 
         public PencilTests()
         {
             _surfaceMoq = new Mock<ISurface>(MockBehavior.Strict);
+            _forgivingMoq = new Mock<ISurface>();
             _sut = new Pencil();
         }
 
@@ -145,6 +147,14 @@ namespace PencilDurability.Tests
         public void GivenAPencil_WhenCreated_ThenTTheyCanVaryInLength()
         {
             Assert.Equal(40u, new Pencil(length: 40u).Length);
+        }
+        
+        [Fact]
+        public void GivenAPencil_WhenSharpened_ThenTheInitialDurabilityIsRestored()
+        {
+            _sut.WriteOn("Climbing is cool", _forgivingMoq.Object);
+            _sut.Sharpen();
+            Assert.Equal(100u, _sut.Durability);
         }
     }
 }

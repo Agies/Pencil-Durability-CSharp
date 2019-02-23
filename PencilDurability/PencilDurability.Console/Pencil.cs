@@ -4,12 +4,13 @@ namespace PencilDurability.Console
 {
     public class Pencil
     {
+        private readonly uint _initialDurability;
         public uint Durability { get; private set; }
         public uint Length { get; private set; }
 
         public Pencil(uint durability = 100, uint length = 20)
         {
-            Durability = durability;
+            _initialDurability = Durability = durability;
             Length = length;
         }
         
@@ -27,6 +28,10 @@ namespace PencilDurability.Console
             }
         }
 
+        public void Sharpen()
+        {
+            Durability = _initialDurability;
+        }
     }
 
     public class NothingToWriteOnException: Exception
