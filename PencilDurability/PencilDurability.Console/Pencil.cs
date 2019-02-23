@@ -18,12 +18,18 @@ namespace PencilDurability.Console
             if (text == null) return;
             foreach (var c in text)
             {
+                if (Durability <= 0)
+                {
+                    surface.Write(' ');
+                }
+                else
+                {
+                    surface.Write(c);
+                }
                 if (!char.IsWhiteSpace(c))
                 {
                     Durability -= (char.IsUpper(c) ? 2 : 1);
                 }
-
-                surface.Write(c);
             }
         }
 

@@ -9,7 +9,7 @@ namespace PencilDurability.Tests
 {
     public class PencilTests
     {
-        private readonly Pencil _sut;
+        private Pencil _sut;
         private Mock<ISurface> _surfaceMoq;
 
         public PencilTests()
@@ -110,6 +110,18 @@ namespace PencilDurability.Tests
             _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 'S')));
             _sut.WriteOn("S", _surfaceMoq.Object);
             Assert.Equal(98, _sut.Durability);
+        }
+        
+        [Fact]
+        public void GiveAPencil_WhenTheDurabilityIsZero_ThenOnlySpacesWillBeWritten()
+        {
+            _sut = new Pencil(4);
+            var sequence = new MockSequence();
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'T')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'x')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _sut.WriteOn("Text", _surfaceMoq.Object);
         }
     }
 }
