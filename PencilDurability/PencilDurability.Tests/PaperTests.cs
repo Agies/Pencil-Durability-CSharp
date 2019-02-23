@@ -10,16 +10,13 @@ namespace PencilDurability.Tests
 
         public PaperTests()
         {
-            _sut = new Paper();
+            
         }
 
         [Fact]
         public void GivenAnEmptySheetOfPaper_WhenWrittenTo_ThenAStringOfCharactersCanBeRead()
         {
-            foreach (var text in "She sells sea shells")
-            {
-                _sut.Write(text);
-            }
+            _sut = new Paper("She sells sea shells");
             var result = _sut.Show();
             Assert.Equal("She sells sea shells", result);
         }
@@ -27,10 +24,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenASheetOfPaper_WhenWrittenOn_ThenAStringWillBeAppendedToThePaper()
         {
-            foreach (var text in "She sells sea shells")
-            {
-                _sut.Write(text);
-            }
+            _sut = new Paper("She sells sea shells");
             _sut.Write(' ');
             var result = _sut.Show();
             Assert.Equal("She sells sea shells ", result);
@@ -39,6 +33,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenASheetOfPaper_WhenFirstCreatedIsEmpty_ThenShowWillBeEmpty()
         {
+            _sut = new Paper();
             var result = _sut.Show();
             Assert.Equal("", result);
         }
