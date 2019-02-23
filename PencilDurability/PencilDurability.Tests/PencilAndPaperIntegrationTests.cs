@@ -50,5 +50,14 @@ namespace PencilDurability.Tests
             pencil.EraseOn("Bill", paper);
             Assert.Equal("Buffalo B   ", paper.Show());
         }
+
+        [Fact]
+        public void GivenASheetOfPaperWithWritingOnIt_WhenEditingIsCalled_ThenLettersOnThePageWillBeErased()
+        {
+            var pencil = new Pencil();
+            var paper = new Paper("An       a day keeps the doctor away");
+            pencil.EditOn(3, "artichoke", paper);
+            Assert.Equal("An artich@k@ay keeps the doctor away", paper.Show());
+        }
     }
 }
