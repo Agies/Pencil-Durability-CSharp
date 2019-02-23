@@ -103,5 +103,13 @@ namespace PencilDurability.Tests
             _sut.WriteOn("\t\n ", _surfaceMoq.Object);
             Assert.Equal(100, _sut.Durability);
         }
+        
+        [Fact]
+        public void GiveAPencil_WhenAnUpperCaseCharacterIsWritten_ThenTheDurabilityWillReduceByTwo()
+        {
+            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 'S')));
+            _sut.WriteOn("S", _surfaceMoq.Object);
+            Assert.Equal(98, _sut.Durability);
+        }
     }
 }

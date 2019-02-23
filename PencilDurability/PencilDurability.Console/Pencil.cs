@@ -20,7 +20,7 @@ namespace PencilDurability.Console
             {
                 if (!char.IsWhiteSpace(c))
                 {
-                    Durability--;
+                    Durability -= (char.IsUpper(c) ? 2 : 1);
                 }
 
                 surface.Write(c);
