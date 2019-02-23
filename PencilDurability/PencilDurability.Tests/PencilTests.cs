@@ -1,5 +1,6 @@
 using System;
 using System.Reflection.Metadata.Ecma335;
+using Castle.Core.Resource;
 using Moq;
 using PencilDurability.Console;
 using Xunit;
@@ -76,14 +77,14 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenExamined_ThenTheDurabilityIsSeen()
         {
-            Assert.Equal(100, _sut.Durability);
+            Assert.Equal(100u, _sut.Durability);
         }
 
         [Fact]
         public void GivenAStrongerPencil_WhenComparedToOurStandardPencil_ThenTheStrongerPencilWillHaveMoreDurability()
         {
             var strongerPencil = new Pencil(4000);
-            Assert.NotInRange(strongerPencil.Durability, int.MinValue, _sut.Durability);
+            Assert.NotInRange(strongerPencil.Durability, uint.MinValue, _sut.Durability);
         }
 
         [Fact]
@@ -91,7 +92,7 @@ namespace PencilDurability.Tests
         {
             _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 's')));
             _sut.WriteOn("s", _surfaceMoq.Object);
-            Assert.Equal(99, _sut.Durability);
+            Assert.Equal(99u, _sut.Durability);
         }
         
         [Fact]
@@ -101,7 +102,7 @@ namespace PencilDurability.Tests
             _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == '\n')));
             _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == ' ')));
             _sut.WriteOn("\t\n ", _surfaceMoq.Object);
-            Assert.Equal(100, _sut.Durability);
+            Assert.Equal(100u, _sut.Durability);
         }
         
         [Fact]
@@ -109,7 +110,7 @@ namespace PencilDurability.Tests
         {
             _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 'S')));
             _sut.WriteOn("S", _surfaceMoq.Object);
-            Assert.Equal(98, _sut.Durability);
+            Assert.Equal(98u, _sut.Durability);
         }
         
         [Fact]
@@ -122,6 +123,20 @@ namespace PencilDurability.Tests
             _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'x')));
             _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
             _sut.WriteOn("Text", _surfaceMoq.Object);
+        }
+        
+        [Fact]
+        public void GiveAPencil_WhenTheDurabilityIsZero_ThenTheDurabilityCannotBeReducedMore()
+        {
+            _sut = new Pencil(4);
+            var sequence = new MockSequence();
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'T')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'x')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _sut.WriteOn("Texts", _surfaceMoq.Object);
+            Assert.Equal(0u, _sut.Durability);
         }
     }
 }

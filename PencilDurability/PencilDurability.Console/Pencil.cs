@@ -5,9 +5,9 @@ namespace PencilDurability.Console
 {
     public class Pencil
     {
-        public int Durability { get; private set; }
+        public uint Durability { get; private set; }
 
-        public Pencil(int durability = 100)
+        public Pencil(uint durability = 100)
         {
             Durability = durability;
         }
@@ -26,9 +26,9 @@ namespace PencilDurability.Console
                 {
                     surface.Write(c);
                 }
-                if (!char.IsWhiteSpace(c))
+                if (!char.IsWhiteSpace(c) && Durability > 0)
                 {
-                    Durability -= (char.IsUpper(c) ? 2 : 1);
+                    Durability -= (char.IsUpper(c) ? 2u : 1u);
                 }
             }
         }
