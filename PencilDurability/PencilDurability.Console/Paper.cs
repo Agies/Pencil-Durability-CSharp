@@ -1,8 +1,9 @@
+using System;
 using System.Text;
 
 namespace PencilDurability.Console
 {
-    public class Paper: ISurface
+    public class Paper: ISurface, IErasable
     {
         private readonly StringBuilder _buffer;
 
@@ -18,7 +19,7 @@ namespace PencilDurability.Console
 
         public void Erase(string text)
         {
-            
+            _buffer.Replace(text, "".PadRight(text.Length), _buffer.ToString().LastIndexOf(text, StringComparison.Ordinal), text.Length);
         }
 
         public string Show()
