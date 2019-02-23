@@ -212,11 +212,19 @@ namespace PencilDurability.Tests
         }
 
         [Fact]
-        public void GivenAPencil_WhenEraseIsCalled_ThenTheDurabilityWillGoDownByOne()
+        public void GivenAPencil_WhenEraseIsCalledWithOneCharacter_ThenTheDurabilityWillGoDownByOne()
         {
             _erasableMock.Setup(t => t.Erase("T"));
             _sut.EraseOn("T", _erasableMock.Object);
             Assert.Equal(19u, _sut.EraserDurability);
+        }
+        
+        [Fact]
+        public void GivenAPencil_WhenEraseIsCalledWithMultipleCharacters_ThenTheDurabilityWillGoDownByOneForEachCharacter()
+        {
+            _erasableMock.Setup(t => t.Erase("Time"));
+            _sut.EraseOn("Time", _erasableMock.Object);
+            Assert.Equal(16u, _sut.EraserDurability);
         }
     }
 }

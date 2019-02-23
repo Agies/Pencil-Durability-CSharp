@@ -40,7 +40,7 @@ namespace PencilDurability.Console
         public void EraseOn(string text, IErasable erasable)
         {
             erasable.Erase(text);
-            EraserDurability--;
+            EraserDurability = (uint) (EraserDurability - text.Length);
         }
     }
 
