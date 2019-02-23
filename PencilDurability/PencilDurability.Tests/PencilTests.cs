@@ -164,5 +164,14 @@ namespace PencilDurability.Tests
             _sut.Sharpen();
             Assert.Equal(19u, _sut.Length);
         }
+        
+        [Fact]
+        public void GivenAPencil_WhenSharpenedWithZeroLength_ThenThePencilsDurabilityRemainsUntouched()
+        {
+            _sut = new Pencil(length: 0);
+            _sut.WriteOn("Games Done Quick", _forgivingMoq.Object);
+            _sut.Sharpen();
+            Assert.Equal(83u, _sut.Durability);
+        }
     }
 }

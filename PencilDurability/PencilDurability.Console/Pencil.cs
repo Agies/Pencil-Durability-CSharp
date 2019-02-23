@@ -30,6 +30,7 @@ namespace PencilDurability.Console
 
         public void Sharpen()
         {
+            if (Length == 0) return;
             Durability = _initialDurability;
             Length--;
         }
