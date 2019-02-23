@@ -49,5 +49,14 @@ namespace PencilDurability.Tests
             _sut.Erase(_sut.Show().Length - 7);
             Assert.Equal("How much wood would a woodchuck chuck if a woodchuck could chuc  wood?", _sut.Show());
         }
+
+        [Fact]
+        public void
+            GivenASheetOfPaperWithWritingOnIt_WhenReplaceIsCalled_ThenThenCharacterAtThePositionShouldBeSwapped()
+        {
+            _sut = new Paper("An       a day keeps the doctor away");
+            _sut.Replace('B', 4);
+            Assert.Equal("An  B    a day keeps the doctor away", _sut.Show());
+        }
     }
 }

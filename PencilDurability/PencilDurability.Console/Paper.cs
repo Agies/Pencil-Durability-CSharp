@@ -31,7 +31,7 @@ namespace PencilDurability.Console
 
         public void Replace(char text, int position)
         {
-            
+            _buffer[position] = text;
         }
     }
 }
