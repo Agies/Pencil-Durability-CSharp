@@ -18,5 +18,13 @@ namespace PencilDurability.Tests
             var result = _sut.Show();
             Assert.Equal("She sells sea shells", result);
         }
+        
+        [Fact]
+        public void GivenASheetOfPaper_WhenWrittenOn_ThenAStringWillBeAppendedToThePaper()
+        {
+            _sut.Write(' ');
+            var result = _sut.Show();
+            Assert.Equal("She sells sea shells ", result);
+        }
     }
 }
