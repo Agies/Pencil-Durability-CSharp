@@ -52,6 +52,11 @@ namespace PencilDurability.Console
                 EraserDurability -= char.IsWhiteSpace(character) ? 0u : 1u;
             }
         }
+
+        public void EditOn(int startIndex, string text, IEditable editable)
+        {
+            editable.Replace(text[0], startIndex);
+        }
     }
 
     public class NothingToWriteOnException: Exception

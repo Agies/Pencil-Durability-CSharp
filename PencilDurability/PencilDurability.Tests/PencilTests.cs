@@ -15,12 +15,14 @@ namespace PencilDurability.Tests
         private readonly Mock<ISurface> _surfaceMoq;
         private readonly Mock<ISurface> _forgivingMoq;
         private readonly Mock<IMockPaper> _erasableMock;
+        private readonly Mock<IEditable> _editableMock;
 
         public PencilTests()
         {
             _erasableMock = new Mock<IMockPaper>(MockBehavior.Strict);
             _surfaceMoq = new Mock<ISurface>(MockBehavior.Strict);
             _forgivingMoq = new Mock<ISurface>();
+            _editableMock = new Mock<IEditable>(MockBehavior.Strict);
             _sut = new Pencil();
         }
 
@@ -293,6 +295,14 @@ namespace PencilDurability.Tests
             _sut.EraseOn("here", _erasableMock.Object);
             _erasableMock.Verify(t => t.Erase(0), Times.Never);
             _erasableMock.Verify(t => t.Erase(1), Times.Never);
+        }
+
+        [Fact]
+        public void GivenAPencil_WhenToldToEditAtAPositionWithText_ThenTheTextWillFillTheSpace()
+        {
+            _editableMock.Setup(t => t.Replace('T', 10));
+            _sut.EditOn(10, "T", _editableMock.Object);
+            _editableMock.Verify(t => t.Replace('T', 10));
         }
     }
 }

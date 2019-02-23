@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PencilDurability.Console
 {
-    public class Paper: ISurface, IErasable, IViewable
+    public class Paper: ISurface, IErasable, IViewable, IEditable
     {
         private readonly StringBuilder _buffer;
 
@@ -27,6 +27,11 @@ namespace PencilDurability.Console
         public string Show()
         {
             return _buffer.ToString();
+        }
+
+        public void Replace(char text, int position)
+        {
+            
         }
     }
 }
