@@ -18,5 +18,9 @@ namespace PencilDurability.Console
 
     public class NothingToWriteOnException: Exception
     {
+        public NothingToWriteOnException(): base("I have nothing on which to write!")
+        {
+            
+        }
     }
 }

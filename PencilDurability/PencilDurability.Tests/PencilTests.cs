@@ -69,7 +69,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GiveAPencilAndANullSurface_WhenInstructedToWrite_ThenComplain()
         {
-            Assert.Throws<NothingToWriteOnException>(() => _sut.WriteOn("Something", null));
+            Assert.Equal("I have nothing on which to write!", Assert.Throws<NothingToWriteOnException>(() => _sut.WriteOn("Something", null)).Message);
         }
     }
 }
