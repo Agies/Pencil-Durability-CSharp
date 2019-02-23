@@ -5,10 +5,12 @@ namespace PencilDurability.Console
     public class Pencil
     {
         public uint Durability { get; private set; }
+        public uint Length { get; private set; }
 
-        public Pencil(uint durability = 100)
+        public Pencil(uint durability = 100, uint length = 20)
         {
             Durability = durability;
+            Length = length;
         }
         
         public void WriteOn(string text, ISurface surface)

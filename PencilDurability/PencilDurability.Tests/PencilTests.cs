@@ -134,5 +134,11 @@ namespace PencilDurability.Tests
             _sut.WriteOn("Texts", _surfaceMoq.Object);
             Assert.Equal(0u, _sut.Durability);
         }
+
+        [Fact]
+        public void GivenAPencil_WhenExamined_ThenTheLengthCanBeDetermined()
+        {
+            Assert.Equal(20u, _sut.Length);
+        }
     }
 }
