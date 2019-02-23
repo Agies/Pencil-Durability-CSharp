@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 
 namespace PencilDurability.Console
 {
@@ -18,14 +17,7 @@ namespace PencilDurability.Console
             if (text == null) return;
             foreach (var c in text)
             {
-                if (Durability <= 0)
-                {
-                    surface.Write(' ');
-                }
-                else
-                {
-                    surface.Write(c);
-                }
+                surface.Write(Durability <= 0 ? ' ' : c);
                 if (!char.IsWhiteSpace(c) && Durability > 0)
                 {
                     Durability -= (char.IsUpper(c) ? 2u : 1u);
