@@ -261,5 +261,13 @@ namespace PencilDurability.Tests
             _sut.EraseOn("\nTime\t ", _erasableMock.Object);
             Assert.Equal(16u, _sut.EraserDurability);
         }
+
+        [Fact]
+        public void GivenAPencil_WhenEraseIsCalledWithAStringThatDoesntExistOnThePage_ThenNothingWillHappen()
+        {
+            _erasableMock.Setup(t => t.Show()).Returns("Nope no instruments here");
+            _sut.EraseOn("Flute ", _erasableMock.Object);
+            Assert.Equal(20u, _sut.EraserDurability);
+        }
     }
 }

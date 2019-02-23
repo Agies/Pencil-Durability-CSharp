@@ -41,8 +41,9 @@ namespace PencilDurability.Console
 
         public void EraseOn<T>(string text, T erasable) where T: IErasable, IViewable
         {
-            var length = text.Length - 1;
             var startIndex = erasable.Show().LastIndexOf(text, StringComparison.Ordinal);
+            if (startIndex < 0) return;
+            var length = text.Length - 1;
             for (var i = length; i >= 0; i--)
             {
                 var character = text[i];
