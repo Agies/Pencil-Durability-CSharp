@@ -41,5 +41,14 @@ namespace PencilDurability.Tests
             pencil.EraseOn("chuck", paper);
             Assert.Equal("How much wood would a woodchuck chuck if a wood      could       wood?", paper.Show());
         }
+        
+        [Fact]
+        public void GivenASheetOfPaperWithWritingOnIt_WhenTheEraserIsLow_ThenPartialWordsAreErased()
+        {
+            var pencil = new Pencil(eraserDurability: 3);
+            var paper = new Paper("Buffalo Bill");
+            pencil.EraseOn("Bill", paper);
+            Assert.Equal("Buffalo B   ", paper.Show());
+        }
     }
 }
