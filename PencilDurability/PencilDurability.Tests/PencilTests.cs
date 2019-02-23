@@ -156,5 +156,13 @@ namespace PencilDurability.Tests
             _sut.Sharpen();
             Assert.Equal(100u, _sut.Durability);
         }
+        
+        [Fact]
+        public void GivenAPencil_WhenSharpened_ThenTheLengthOfThePencilIsReduced()
+        {
+            _sut.WriteOn("Games Done Quick", _forgivingMoq.Object);
+            _sut.Sharpen();
+            Assert.Equal(19u, _sut.Length);
+        }
     }
 }

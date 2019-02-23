@@ -31,6 +31,7 @@ namespace PencilDurability.Console
         public void Sharpen()
         {
             Durability = _initialDurability;
+            Length--;
         }
     }
 
