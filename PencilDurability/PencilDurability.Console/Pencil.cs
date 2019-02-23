@@ -34,6 +34,11 @@ namespace PencilDurability.Console
             Durability = _initialDurability;
             Length--;
         }
+
+        public void EraseOn(string text, IErasable erasable)
+        {
+            erasable.Erase(text);
+        }
     }
 
     public class NothingToWriteOnException: Exception

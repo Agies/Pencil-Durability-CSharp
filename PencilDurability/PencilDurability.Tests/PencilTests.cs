@@ -9,9 +9,11 @@ namespace PencilDurability.Tests
         private Pencil _sut;
         private readonly Mock<ISurface> _surfaceMoq;
         private readonly Mock<ISurface> _forgivingMoq;
+        private readonly Mock<IErasable> _erasableMock;
 
         public PencilTests()
         {
+            _erasableMock = new Mock<IErasable>(MockBehavior.Strict);
             _surfaceMoq = new Mock<ISurface>(MockBehavior.Strict);
             _forgivingMoq = new Mock<ISurface>();
             _sut = new Pencil();
@@ -182,6 +184,14 @@ namespace PencilDurability.Tests
             _sut.Sharpen();
             _sut.Sharpen();
             Assert.Equal(0u, _sut.Length);
+        }
+
+        [Fact]
+        public void GivenAPencil_WhenInstructedToErase_ThenThePencilWillCallEraseOnTheSurface()
+        {
+            _erasableMock.Setup(t => t.Erase("Food"));
+            _sut.EraseOn("Food", _erasableMock.Object);
+            _erasableMock.Verify(t => t.Erase("Food"), Times.Once);
         }
     }
 }
