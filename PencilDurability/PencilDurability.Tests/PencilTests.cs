@@ -51,5 +51,11 @@ namespace PencilDurability.Tests
             _sut.WriteOn("She sells sea shells", _surfaceMoq.Object);
         }
 
+        [Fact]
+        public void GivenAPencilAndPaper_WhenInstructedToAnEmptyString_ThenThePencilWillNotWrite()
+        {
+            _sut.WriteOn("", _surfaceMoq.Object);
+            _surfaceMoq.Verify(s => s.Write(It.IsAny<char>()), Times.Never);
+        }
     }
 }
