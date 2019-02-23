@@ -168,6 +168,16 @@ namespace PencilDurability.Tests
         }
         
         [Fact]
+        public void GivenAPencil_WhenSharpenedIsCalledMultipleTime_ThenTheLengthOfThePencilIsReducedEachTime()
+        {
+            _sut.WriteOn("Games Done Quick", _forgivingMoq.Object);
+            _sut.Sharpen();
+            _sut.Sharpen();
+            _sut.Sharpen();
+            Assert.Equal(17u, _sut.Length);
+        }
+        
+        [Fact]
         public void GivenAPencil_WhenSharpenedWithZeroLength_ThenThePencilsDurabilityRemainsUntouched()
         {
             _sut = new Pencil(length: 0);
