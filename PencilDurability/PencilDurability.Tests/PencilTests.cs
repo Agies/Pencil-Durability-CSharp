@@ -1,17 +1,13 @@
-using System;
-using System.Reflection.Metadata.Ecma335;
-using Castle.Core.Resource;
 using Moq;
 using PencilDurability.Console;
 using Xunit;
-using Xunit.Sdk;
 
 namespace PencilDurability.Tests
 {
     public class PencilTests
     {
         private Pencil _sut;
-        private Mock<ISurface> _surfaceMoq;
+        private readonly Mock<ISurface> _surfaceMoq;
 
         public PencilTests()
         {
