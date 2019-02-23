@@ -140,5 +140,11 @@ namespace PencilDurability.Tests
         {
             Assert.Equal(20u, _sut.Length);
         }
+        
+        [Fact]
+        public void GivenAPencil_WhenCreated_ThenTTheyCanVaryInLength()
+        {
+            Assert.Equal(40u, new Pencil(length: 40u).Length);
+        }
     }
 }
