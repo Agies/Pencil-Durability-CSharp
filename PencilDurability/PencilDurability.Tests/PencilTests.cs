@@ -93,5 +93,15 @@ namespace PencilDurability.Tests
             _sut.WriteOn("s", _surfaceMoq.Object);
             Assert.Equal(99, _sut.Durability);
         }
+        
+        [Fact]
+        public void GiveAPencil_WhenWhitespaceCharactersAreWritten_ThenTheDurabilityWillNotReduce()
+        {
+            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == '\t')));
+            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == '\n')));
+            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _sut.WriteOn("\t\n ", _surfaceMoq.Object);
+            Assert.Equal(100, _sut.Durability);
+        }
     }
 }
