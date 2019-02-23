@@ -52,9 +52,16 @@ namespace PencilDurability.Tests
         }
 
         [Fact]
-        public void GivenAPencilAndPaper_WhenInstructedToAnEmptyString_ThenThePencilWillNotWrite()
+        public void GivenAPencilAndPaper_WhenInstructedToWriteAnEmptyString_ThenThePencilWillNotWrite()
         {
             _sut.WriteOn("", _surfaceMoq.Object);
+            _surfaceMoq.Verify(s => s.Write(It.IsAny<char>()), Times.Never);
+        }
+        
+        [Fact]
+        public void GivenAPencilAndPaper_WhenInstructedToWriteANull_ThenThePencilWillNotWrite()
+        {
+            _sut.WriteOn(null, _surfaceMoq.Object);
             _surfaceMoq.Verify(s => s.Write(It.IsAny<char>()), Times.Never);
         }
     }

@@ -6,6 +6,7 @@ namespace PencilDurability.Console
     {
         public void WriteOn(string text, ISurface surface)
         {
+            if (text == null) return;
             foreach (var c in text)
             {
                 surface.Write(c);
