@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace PencilDurability.Console
 {
@@ -40,7 +41,7 @@ namespace PencilDurability.Console
         public void EraseOn(string text, IErasable erasable)
         {
             erasable.Erase(text);
-            EraserDurability = (uint) (EraserDurability - text.Length);
+            EraserDurability = (uint) (EraserDurability - text.Count(c => !char.IsWhiteSpace(c)));
         }
     }
 

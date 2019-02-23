@@ -226,5 +226,13 @@ namespace PencilDurability.Tests
             _sut.EraseOn("Time", _erasableMock.Object);
             Assert.Equal(16u, _sut.EraserDurability);
         }
+        
+        [Fact]
+        public void GivenAPencil_WhenEraseIsCalledWithWhitespaceCharacters_ThenTheDurabilityWillNotGoDownByOneForEachCharacter()
+        {
+            _erasableMock.Setup(t => t.Erase("\nTime\t "));
+            _sut.EraseOn("\nTime\t ", _erasableMock.Object);
+            Assert.Equal(16u, _sut.EraserDurability);
+        }
     }
 }
