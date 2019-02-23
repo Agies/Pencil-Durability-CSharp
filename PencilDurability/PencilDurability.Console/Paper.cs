@@ -31,6 +31,10 @@ namespace PencilDurability.Console
 
         public void Replace(char text, int position)
         {
+            if (position > _buffer.Length)
+            {
+                _buffer.Append("".PadRight(position - (_buffer.Length - 1)));
+            }
             _buffer[position] = text;
         }
     }

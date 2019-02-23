@@ -58,5 +58,14 @@ namespace PencilDurability.Tests
             _sut.Replace('B', 4);
             Assert.Equal("An  B    a day keeps the doctor away", _sut.Show());
         }
+        
+        [Fact]
+        public void
+            GivenASheetOfPaperWithWritingOnIt_WhenReplaceIsCalledPastTheCurrentPosition_ThenThenTheAdditionalCharactersAreAdded()
+        {
+            _sut = new Paper("An");
+            _sut.Replace('B', 10);
+            Assert.Equal("An        B", _sut.Show());
+        }
     }
 }
