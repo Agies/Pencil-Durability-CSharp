@@ -41,9 +41,18 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenASheetOfPaperWithWritingOnIt_WhenEraseIsCalled_ThenTheLastOccurenceOfTheTextIsRemoved()
         {
-            _sut = new Paper("Writing on it with Writing Foo");
-            _sut.Erase("Writing");
-            Assert.Equal("Writing on it with         Foo", _sut.Show());
+            _sut = new Paper("How much wood would a woodchuck chuck if a woodchuck could chuck wood?");
+            _sut.Erase("chuck");
+            Assert.Equal("How much wood would a woodchuck chuck if a woodchuck could       wood?", _sut.Show());
+        }
+        
+        [Fact]
+        public void GivenASheetOfPaperWithWritingOnIt_WhenEraseIsCalledTwice_ThenTheLastOccurenceOfTheTextIsRemovedThenTheNextOccurence()
+        {
+            _sut = new Paper("How much wood would a woodchuck chuck if a woodchuck could chuck wood?");
+            _sut.Erase("chuck");
+            _sut.Erase("chuck");
+            Assert.Equal("How much wood would a woodchuck chuck if a wood      could       wood?", _sut.Show());
         }
     }
 }
