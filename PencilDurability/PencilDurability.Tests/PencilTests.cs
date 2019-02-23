@@ -281,5 +281,18 @@ namespace PencilDurability.Tests
             _erasableMock.Verify(t => t.Erase(2), Times.Never);
             _erasableMock.Verify(t => t.Erase(3), Times.Never);
         }
+        
+        [Fact]
+        public void GivenAPencil_WhenEraseIsCalledWithLowDurability_ThenOnlyPartialIsErased()
+        {
+            _sut = new Pencil(eraserDurability: 2);
+            _erasableMock.Setup(t => t.Show()).Returns("here");
+            var sequence = new MockSequence();
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _sut.EraseOn("here", _erasableMock.Object);
+            _erasableMock.Verify(t => t.Erase(0), Times.Never);
+            _erasableMock.Verify(t => t.Erase(1), Times.Never);
+        }
     }
 }
