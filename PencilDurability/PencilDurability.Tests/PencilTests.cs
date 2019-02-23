@@ -1,3 +1,4 @@
+using System;
 using System.Reflection.Metadata.Ecma335;
 using Moq;
 using PencilDurability.Console;
@@ -73,9 +74,16 @@ namespace PencilDurability.Tests
         }
 
         [Fact]
-        public void GivenAPencil_WhenExamined_ThenTheDurabilityIsSee()
+        public void GivenAPencil_WhenExamined_ThenTheDurabilityIsSeen()
         {
             Assert.Equal(100, _sut.Durability);
+        }
+
+        [Fact]
+        public void GivenAStrongerPencil_WhenComparedToOurStandardPencil_ThenTheStrongerPencilWillHaveMoreDurability()
+        {
+            var strongerPencil = new Pencil(4000);
+            Assert.NotInRange(strongerPencil.Durability, int.MinValue, _sut.Durability);
         }
     }
 }

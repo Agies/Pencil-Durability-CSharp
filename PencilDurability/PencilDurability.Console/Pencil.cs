@@ -7,9 +7,9 @@ namespace PencilDurability.Console
     {
         public int Durability { get; }
 
-        public Pencil()
+        public Pencil(int durability = 100)
         {
-            Durability = 100;
+            Durability = durability;
         }
         
         public void WriteOn(string text, ISurface surface)
