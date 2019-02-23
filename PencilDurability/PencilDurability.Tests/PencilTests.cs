@@ -203,5 +203,12 @@ namespace PencilDurability.Tests
             _sut.EraseOn("Food", _erasableMock.Object);
             _erasableMock.Verify(t => t.Erase("Food"), Times.Once);
         }
+
+        [Fact]
+        public void GivenAPencil_WhenCreatedTheEraserDurabilityCanBeSet_ThenWhenExaminedTheDurabilityCanBeDetermined()
+        {
+            _sut = new Pencil(eraserDurability: 30u);
+            Assert.Equal(30u, _sut.EraserDurability);
+        }
     }
 }

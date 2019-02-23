@@ -7,11 +7,13 @@ namespace PencilDurability.Console
         private readonly uint _initialDurability;
         public uint Durability { get; private set; }
         public uint Length { get; private set; }
+        public uint EraserDurability { get; }
 
-        public Pencil(uint durability = 100, uint length = 20)
+        public Pencil(uint durability = 100, uint length = 20, uint eraserDurability = 20)
         {
             _initialDurability = Durability = durability;
             Length = length;
+            EraserDurability = eraserDurability;
         }
         
         public void WriteOn(string text, ISurface surface)
