@@ -7,7 +7,7 @@ namespace PencilDurability.Console
         private readonly uint _initialDurability;
         public uint Durability { get; private set; }
         public uint Length { get; private set; }
-        public uint EraserDurability { get; }
+        public uint EraserDurability { get; private set; }
 
         public Pencil(uint durability = 100, uint length = 20, uint eraserDurability = 20)
         {
@@ -40,6 +40,7 @@ namespace PencilDurability.Console
         public void EraseOn(string text, IErasable erasable)
         {
             erasable.Erase(text);
+            EraserDurability--;
         }
     }
 
