@@ -19,6 +19,7 @@ namespace PencilDurability.Console
 
         public void Erase(string text)
         {
+            if (text == string.Empty) return;
             _buffer.Replace(text, "".PadRight(text.Length), _buffer.ToString().LastIndexOf(text, StringComparison.Ordinal), text.Length);
         }
 

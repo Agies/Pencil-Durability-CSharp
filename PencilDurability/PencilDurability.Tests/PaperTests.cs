@@ -47,6 +47,14 @@ namespace PencilDurability.Tests
             var result = _sut.Show();
             Assert.Equal("", result);
         }
+        
+        [Fact]
+        public void GivenASheetOfPaper_WhenErasingNothing_NothingIsErased()
+        {
+            _sut = new Paper("b b b b b b b");
+            _sut.Erase("");
+            Assert.Equal("b b b b b b b", _sut.Show());
+        }
 
         [Fact]
         public void GivenASheetOfPaperWithWritingOnIt_WhenEraseIsCalled_ThenTheLastOccurenceOfTheTextIsRemoved()
