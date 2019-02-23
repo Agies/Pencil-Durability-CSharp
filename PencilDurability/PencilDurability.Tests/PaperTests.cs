@@ -29,6 +29,16 @@ namespace PencilDurability.Tests
             var result = _sut.Show();
             Assert.Equal("She sells sea shells ", result);
         }
+        
+        [Fact]
+        public void GivenASheetOfPaper_WhenWrittenOnMultipleTime_ThenAStringWillBeAppendedToThePaper()
+        {
+            _sut = new Paper("She sells sea shells");
+            _sut.Write(' ');
+            _sut.Write('d');
+            var result = _sut.Show();
+            Assert.Equal("She sells sea shells d", result);
+        }
 
         [Fact]
         public void GivenASheetOfPaper_WhenFirstCreatedIsEmpty_ThenShowWillBeEmpty()
