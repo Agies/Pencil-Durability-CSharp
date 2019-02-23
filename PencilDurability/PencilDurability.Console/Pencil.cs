@@ -38,7 +38,7 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn(string text, IErasable erasable)
+        public void EraseOn<T>(string text, T erasable) where T: IErasable, IViewable
         {
             erasable.Erase(text);
             EraserDurability = (uint) (EraserDurability - text.Count(c => !char.IsWhiteSpace(c)));

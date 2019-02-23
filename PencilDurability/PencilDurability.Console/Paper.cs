@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PencilDurability.Console
 {
-    public class Paper: ISurface, IErasable
+    public class Paper: ISurface, IErasable, IViewable
     {
         private readonly StringBuilder _buffer;
 

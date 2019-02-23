@@ -4,16 +4,21 @@ using Xunit;
 
 namespace PencilDurability.Tests
 {
+    public interface IMockPaper: IErasable, IViewable
+    {
+        
+    }
+    
     public class PencilTests
     {
         private Pencil _sut;
         private readonly Mock<ISurface> _surfaceMoq;
         private readonly Mock<ISurface> _forgivingMoq;
-        private readonly Mock<IErasable> _erasableMock;
+        private readonly Mock<IMockPaper> _erasableMock;
 
         public PencilTests()
         {
-            _erasableMock = new Mock<IErasable>(MockBehavior.Strict);
+            _erasableMock = new Mock<IMockPaper>(MockBehavior.Strict);
             _surfaceMoq = new Mock<ISurface>(MockBehavior.Strict);
             _forgivingMoq = new Mock<ISurface>();
             _sut = new Pencil();

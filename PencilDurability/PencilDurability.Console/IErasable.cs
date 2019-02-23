@@ -4,4 +4,9 @@ namespace PencilDurability.Console
     {
         void Erase(string text);
     }
+
+    public interface IViewable
+    {
+        string Show();
+    }
 }
