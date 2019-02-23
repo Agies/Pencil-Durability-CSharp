@@ -1,0 +1,2 @@
+cd PencilDurability\PencilDurability.Tests
+dotnet test

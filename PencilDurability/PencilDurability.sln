@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PencilDurability.Console", "PencilDurability.Console\PencilDurability.Console.csproj", "{977D4D58-5B5E-4106-8975-CC297B72F863}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PencilDurability.Tests", "PencilDurability.Tests\PencilDurability.Tests.csproj", "{810B9519-32FB-4626-9F90-02FCC6283F06}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{1543FC30-4C22-4544-943D-21B3BBE4EE0F}"
+ProjectSection(SolutionItems) = preProject
+	..\ci\run.bat = ..\ci\run.bat
+	..\ci\run.sh = ..\ci\run.sh
+	..\ci\test.bat = ..\ci\test.bat
+	..\ci\test.sh = ..\ci\test.sh
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{A5FF4ACF-CB5C-4AB2-9124-E4FCCCB527DC}"
+ProjectSection(SolutionItems) = preProject
+	..\README.md = ..\README.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{977D4D58-5B5E-4106-8975-CC297B72F863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{977D4D58-5B5E-4106-8975-CC297B72F863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{977D4D58-5B5E-4106-8975-CC297B72F863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{977D4D58-5B5E-4106-8975-CC297B72F863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{810B9519-32FB-4626-9F90-02FCC6283F06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{810B9519-32FB-4626-9F90-02FCC6283F06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{810B9519-32FB-4626-9F90-02FCC6283F06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{810B9519-32FB-4626-9F90-02FCC6283F06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

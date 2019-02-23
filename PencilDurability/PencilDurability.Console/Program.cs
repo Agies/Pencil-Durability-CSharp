@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Pencil_Durability_CSharp
+namespace PencilDurability.Console
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            System.Console.WriteLine("Hello World!");
         }
     }
 }
