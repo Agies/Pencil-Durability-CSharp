@@ -4,7 +4,7 @@ using Xunit;
 
 namespace PencilDurability.Tests
 {
-    public interface IMockPaper: IErasable, IViewable
+    public interface IMockPaper: IErasable, IViewable, IEditable
     {
         
     }
@@ -14,15 +14,13 @@ namespace PencilDurability.Tests
         private Pencil _sut;
         private readonly Mock<ISurface> _surfaceMoq;
         private readonly Mock<ISurface> _forgivingMoq;
-        private readonly Mock<IMockPaper> _erasableMock;
-        private readonly Mock<IEditable> _editableMock;
+        private readonly Mock<IMockPaper> _paperMock;
 
         public PencilTests()
         {
-            _erasableMock = new Mock<IMockPaper>(MockBehavior.Strict);
+            _paperMock = new Mock<IMockPaper>(MockBehavior.Strict);
             _surfaceMoq = new Mock<ISurface>(MockBehavior.Strict);
             _forgivingMoq = new Mock<ISurface>();
-            _editableMock = new Mock<IEditable>(MockBehavior.Strict);
             _sut = new Pencil();
         }
 
@@ -206,17 +204,17 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenInstructedToErase_ThenThePencilWillCallEraseOnTheSurface()
         {
-            _erasableMock.Setup(t => t.Show()).Returns("Food");
+            _paperMock.Setup(t => t.Show()).Returns("Food");
             var sequence = new MockSequence();
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(1));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(0));
-            _sut.EraseOn("Food", _erasableMock.Object);
-            _erasableMock.Verify(t => t.Erase(3), Times.Once);
-            _erasableMock.Verify(t => t.Erase(2), Times.Once);
-            _erasableMock.Verify(t => t.Erase(1), Times.Once);
-            _erasableMock.Verify(t => t.Erase(0), Times.Once);
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(1));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(0));
+            _sut.EraseOn("Food", _paperMock.Object);
+            _paperMock.Verify(t => t.Erase(3), Times.Once);
+            _paperMock.Verify(t => t.Erase(2), Times.Once);
+            _paperMock.Verify(t => t.Erase(1), Times.Once);
+            _paperMock.Verify(t => t.Erase(0), Times.Once);
         }
 
         [Fact]
@@ -229,46 +227,46 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithOneCharacter_ThenTheDurabilityWillGoDownByOne()
         {
-            _erasableMock.Setup(t => t.Show()).Returns("T");
-            _erasableMock.Setup(t => t.Erase(0));
-            _sut.EraseOn("T", _erasableMock.Object);
+            _paperMock.Setup(t => t.Show()).Returns("T");
+            _paperMock.Setup(t => t.Erase(0));
+            _sut.EraseOn("T", _paperMock.Object);
             Assert.Equal(19u, _sut.EraserDurability);
         }
         
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithMultipleCharacters_ThenTheDurabilityWillGoDownByOneForEachCharacter()
         {
-            _erasableMock.Setup(t => t.Show()).Returns("Time");
+            _paperMock.Setup(t => t.Show()).Returns("Time");
             var sequence = new MockSequence();
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(1));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(0));
-            _sut.EraseOn("Time", _erasableMock.Object);
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(1));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(0));
+            _sut.EraseOn("Time", _paperMock.Object);
             Assert.Equal(16u, _sut.EraserDurability);
         }
         
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithWhitespaceCharacters_ThenTheDurabilityWillNotGoDownByOneForEachCharacter()
         {
-            _erasableMock.Setup(t => t.Show()).Returns("\nTime\t ");
+            _paperMock.Setup(t => t.Show()).Returns("\nTime\t ");
             var sequence = new MockSequence();
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(6));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(5));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(4));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(1));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(0));
-            _sut.EraseOn("\nTime\t ", _erasableMock.Object);
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(6));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(5));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(4));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(1));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(0));
+            _sut.EraseOn("\nTime\t ", _paperMock.Object);
             Assert.Equal(16u, _sut.EraserDurability);
         }
 
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithAStringThatDoesntExistOnThePage_ThenNothingWillHappen()
         {
-            _erasableMock.Setup(t => t.Show()).Returns("Nope no instruments here");
-            _sut.EraseOn("Flute ", _erasableMock.Object);
+            _paperMock.Setup(t => t.Show()).Returns("Nope no instruments here");
+            _sut.EraseOn("Flute ", _paperMock.Object);
             Assert.Equal(20u, _sut.EraserDurability);
         }
         
@@ -276,33 +274,64 @@ namespace PencilDurability.Tests
         public void GivenAPencil_WhenEraseIsCalledWithNoDurability_ThenNothingWillHappen()
         {
             _sut = new Pencil(eraserDurability: 0);
-            _erasableMock.Setup(t => t.Show()).Returns("here");
-            _sut.EraseOn("here", _erasableMock.Object);
-            _erasableMock.Verify(t => t.Erase(0), Times.Never);
-            _erasableMock.Verify(t => t.Erase(1), Times.Never);
-            _erasableMock.Verify(t => t.Erase(2), Times.Never);
-            _erasableMock.Verify(t => t.Erase(3), Times.Never);
+            _paperMock.Setup(t => t.Show()).Returns("here");
+            _sut.EraseOn("here", _paperMock.Object);
+            _paperMock.Verify(t => t.Erase(0), Times.Never);
+            _paperMock.Verify(t => t.Erase(1), Times.Never);
+            _paperMock.Verify(t => t.Erase(2), Times.Never);
+            _paperMock.Verify(t => t.Erase(3), Times.Never);
         }
         
         [Fact]
         public void GivenAPencil_WhenEraseIsCalledWithLowDurability_ThenOnlyPartialIsErased()
         {
             _sut = new Pencil(eraserDurability: 2);
-            _erasableMock.Setup(t => t.Show()).Returns("here");
+            _paperMock.Setup(t => t.Show()).Returns("here");
             var sequence = new MockSequence();
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(3));
-            _erasableMock.InSequence(sequence).Setup(s => s.Erase(2));
-            _sut.EraseOn("here", _erasableMock.Object);
-            _erasableMock.Verify(t => t.Erase(0), Times.Never);
-            _erasableMock.Verify(t => t.Erase(1), Times.Never);
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(3));
+            _paperMock.InSequence(sequence).Setup(s => s.Erase(2));
+            _sut.EraseOn("here", _paperMock.Object);
+            _paperMock.Verify(t => t.Erase(0), Times.Never);
+            _paperMock.Verify(t => t.Erase(1), Times.Never);
         }
 
         [Fact]
         public void GivenAPencil_WhenToldToEditAtAPositionWithText_ThenTheTextWillFillTheSpace()
         {
-            _editableMock.Setup(t => t.Replace('T', 10));
-            _sut.EditOn(10, "T", _editableMock.Object);
-            _editableMock.Verify(t => t.Replace('T', 10));
+            _paperMock.Setup(t => t.Show()).Returns("           ");
+            _paperMock.Setup(t => t.Replace('T', 10));
+            _sut.EditOn(10, "T", _paperMock.Object);
+            _paperMock.Verify(t => t.Replace('T', 10));
+        }
+        
+        [Fact]
+        public void GivenAPencil_WhenToldToEditAtAPositionWithAnyText_ThenTheTextWillFillTheSpace()
+        {
+            _paperMock.Setup(t => t.Show()).Returns("               ");
+            _paperMock.Setup(t => t.Replace('T', 10));
+            _paperMock.Setup(t => t.Replace('e', 11));
+            _paperMock.Setup(t => t.Replace('x', 12));
+            _paperMock.Setup(t => t.Replace('t', 13));
+            _sut.EditOn(10, "Text", _paperMock.Object);
+            _paperMock.Verify(t => t.Replace('T', 10));
+            _paperMock.Verify(t => t.Replace('e', 11));
+            _paperMock.Verify(t => t.Replace('x', 12));
+            _paperMock.Verify(t => t.Replace('t', 13));
+        }
+        
+        [Fact]
+        public void GivenAPencil_WhenToldToEditAtAPositionWithAnyTextAndThereIsACollision_ThenTheTextWillBeAnAtSymbol()
+        {
+            _paperMock.Setup(t => t.Show()).Returns("          F  d");
+            _paperMock.Setup(t => t.Replace('@', 10));
+            _paperMock.Setup(t => t.Replace('e', 11));
+            _paperMock.Setup(t => t.Replace('x', 12));
+            _paperMock.Setup(t => t.Replace('@', 13));
+            _sut.EditOn(10, "Text", _paperMock.Object);
+            _paperMock.Verify(t => t.Replace('@', 10));
+            _paperMock.Verify(t => t.Replace('e', 11));
+            _paperMock.Verify(t => t.Replace('x', 12));
+            _paperMock.Verify(t => t.Replace('@', 13));
         }
     }
 }
