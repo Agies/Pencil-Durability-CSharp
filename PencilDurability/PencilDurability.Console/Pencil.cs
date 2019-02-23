@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 namespace PencilDurability.Console
@@ -6,6 +7,7 @@ namespace PencilDurability.Console
     {
         public void WriteOn(string text, ISurface surface)
         {
+            if (surface == null) throw new NothingToWriteOnException();
             if (text == null) return;
             foreach (var c in text)
             {
@@ -13,9 +15,8 @@ namespace PencilDurability.Console
             }
         }
     }
-    
-    public interface ISurface
+
+    public class NothingToWriteOnException: Exception
     {
-        void Write(char text);
     }
 }

@@ -2,6 +2,7 @@ using System.Reflection.Metadata.Ecma335;
 using Moq;
 using PencilDurability.Console;
 using Xunit;
+using Xunit.Sdk;
 
 namespace PencilDurability.Tests
 {
@@ -63,6 +64,12 @@ namespace PencilDurability.Tests
         {
             _sut.WriteOn(null, _surfaceMoq.Object);
             _surfaceMoq.Verify(s => s.Write(It.IsAny<char>()), Times.Never);
+        }
+
+        [Fact]
+        public void GiveAPencilAndANullSurface_WhenInstructedToWrite_ThenComplain()
+        {
+            Assert.Throws<NothingToWriteOnException>(() => _sut.WriteOn("Something", null));
         }
     }
 }
