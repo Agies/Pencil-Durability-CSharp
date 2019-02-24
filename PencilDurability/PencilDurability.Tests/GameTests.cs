@@ -140,7 +140,15 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(1));
             _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
-
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIsq_ThenTheGameWillQuit()
+        {
+            _mockInput.Setup(t => t.ReadLine()).Returns("q");
+            _sut.Start();
+            _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(1));
+            _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
         }
 
         [Fact]

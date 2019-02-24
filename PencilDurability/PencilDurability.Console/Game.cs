@@ -27,8 +27,8 @@ namespace PencilDurability.Console
         {
             while (true)
             {
-                var answer = "";
-                var allowedAnswers = new[] {"1", "2", "Q"};
+                string answer;
+                var allowedAnswers = new[] {"1", "2", "Q", "q"};
                 do
                 {
                     _output.WriteLine(Intro);
