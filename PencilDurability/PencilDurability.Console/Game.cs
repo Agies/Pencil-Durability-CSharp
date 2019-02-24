@@ -76,6 +76,6 @@ namespace PencilDurability.Console
         private string Reading =>
             $"You look at the simple sheet of paper and read the text written.\n\n{_surface.Show()}";
 
-        public const string Exit = "Tank you for playing";
+        public const string Exit = "Thank you for playing";
     }
 }
