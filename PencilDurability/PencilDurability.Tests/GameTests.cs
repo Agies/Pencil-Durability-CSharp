@@ -25,6 +25,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGame_WhenStarted_ThenShouldPrintIntro()
         {
+            _mockInput.Setup(t => t.ReadLine()).Returns("1");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine("You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil"), Times.Once);
         }
@@ -32,6 +33,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGame_WhenStarted_ThenShouldPromptForAnswer()
         {
+            _mockInput.Setup(t => t.ReadLine()).Returns("1");
             _sut.Start();
             _mockInput.Verify(t => t.ReadLine());
         }
@@ -54,6 +56,16 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockDevice.Verify(t => t.Examine());
             _mockOutput.Verify(t => t.WriteLine("You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\nHello"));
+        }
+
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIsNotOneOrTwo_ThenItShouldRepeatTheQuestion()
+        {
+            MockSequence sequence = new MockSequence();
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("3");
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
+            _sut.Start();
+            _mockOutput.Verify(t => t.WriteLine("You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil"), Times.Exactly(2));
         }
     }
 }

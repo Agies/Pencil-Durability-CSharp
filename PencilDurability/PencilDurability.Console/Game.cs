@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 
 namespace PencilDurability.Console
 {
@@ -19,8 +20,13 @@ namespace PencilDurability.Console
 
         public void Start()
         {
-            _output.WriteLine(Intro);
-            var answer = _input.ReadLine();
+            var answer = "";
+            var allowedAnswers = new string[] {"1", "2"};
+            do
+            {
+                _output.WriteLine(Intro);
+            } while (!allowedAnswers.Contains((answer = _input.ReadLine())));
+
             if (answer == "1")
             {
                 _output.WriteLine(Reading);
