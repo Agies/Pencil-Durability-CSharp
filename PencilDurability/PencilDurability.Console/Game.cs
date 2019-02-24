@@ -8,17 +8,23 @@ namespace PencilDurability.Console
     {
         private readonly TextWriter _output;
         private readonly TextReader _input;
+        private readonly ISurface _surface;
 
-        public Game(TextWriter output, TextReader input)
+        public Game(TextWriter output, TextReader input, ISurface surface)
         {
             _output = output;
             _input = input;
+            _surface = surface;
         }
 
         public void Start()
         {
             _output.Write(Intro);
-            _input.ReadLine();
+            var answer = _input.ReadLine();
+            if (answer == "1")
+            {
+                _output.Write($"{Reading}\n\n{_surface.Show()}");
+            }
         }
 
         private const string Intro =
@@ -26,5 +32,8 @@ namespace PencilDurability.Console
             "What would you like to do?\n" +
             "1) Read the paper\n" +
             "2) Look at pencil";
+
+        private const string Reading =
+            "You look at the simple sheet of paper and read the text written.";
     }
 }
