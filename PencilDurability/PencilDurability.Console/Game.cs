@@ -19,15 +19,15 @@ namespace PencilDurability.Console
 
         public void Start()
         {
-            _output.Write(Intro);
+            _output.WriteLine(Intro);
             var answer = _input.ReadLine();
             if (answer == "1")
             {
-                _output.Write(Reading);
+                _output.WriteLine(Reading);
             }
             else if (answer == "2")
             {
-                _output.Write(Examine);
+                _output.WriteLine(Examine);
             }
         }
 
