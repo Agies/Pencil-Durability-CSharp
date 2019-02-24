@@ -23,7 +23,7 @@ namespace PencilDurability.Console
             var answer = _input.ReadLine();
             if (answer == "1")
             {
-                _output.Write($"{Reading}\n\n{_surface.Show()}");
+                _output.Write(Reading);
             }
         }
 
@@ -33,7 +33,7 @@ namespace PencilDurability.Console
             "1) Read the paper\n" +
             "2) Look at pencil";
 
-        private const string Reading =
-            "You look at the simple sheet of paper and read the text written.";
+        private string Reading =>
+            $"You look at the simple sheet of paper and read the text written.\n\n{_surface.Show()}";
     }
 }
