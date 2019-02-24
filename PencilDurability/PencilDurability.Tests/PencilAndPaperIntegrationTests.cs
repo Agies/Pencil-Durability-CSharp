@@ -52,11 +52,11 @@ namespace PencilDurability.Tests
         }
 
         [Fact]
-        public void GivenASheetOfPaperWithWritingOnIt_WhenEditingIsCalled_ThenLettersOnThePageWillBeErased()
+        public void GivenASheetOfPaperWithWritingOnIt_WhenWriteIsCalled_ThenLettersOnThePageWillBeOverwritten()
         {
             var pencil = new Pencil();
             var paper = new Paper("An       a day keeps the doctor away");
-            pencil.EditOn(3, "artichoke", paper);
+            pencil.WriteOn("artichoke", paper, 3);
             Assert.Equal("An artich@k@ay keeps the doctor away", paper.Show());
         }
     }

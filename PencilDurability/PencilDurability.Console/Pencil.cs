@@ -16,16 +16,26 @@ namespace PencilDurability.Console
             EraserDurability = eraserDurability;
         }
         
-        public void WriteOn(string text, ISurface surface)
+        public void WriteOn(string text, ISurface surface, int? startIndex = null)
         {
             if (surface == null) throw new NothingToWriteOnException();
             if (text == null) return;
-            foreach (var c in text)
+            
+            var existingText = surface.Show();
+            var start = startIndex ?? existingText.Length;
+            for (var i = 0; i < text.Length; i++)
             {
-                surface.Write(Durability <= 0 ? ' ' : c);
-                if (!char.IsWhiteSpace(c) && Durability > 0)
+                var pos = start + i;
+                var collisionCharacter = pos < existingText.Length ? existingText[pos] : ' ';
+                var outOfDurability = Durability <= 0;
+                var toWrite = char.IsWhiteSpace(collisionCharacter) ? 
+                    (outOfDurability ? ' ' : text[i]) : 
+                    (outOfDurability ? collisionCharacter : '@');
+                surface.Write(toWrite, pos);
+                
+                if (!char.IsWhiteSpace(toWrite) && !outOfDurability)
                 {
-                    Durability -= (char.IsUpper(c) ? 2u : 1u);
+                    Durability -= (char.IsUpper(toWrite) ? 2u : 1u);
                 }
             }
         }
@@ -48,20 +58,6 @@ namespace PencilDurability.Console
                 var character = text[i];
                 surface.Erase(startIndex + i);
                 EraserDurability -= char.IsWhiteSpace(character) ? 0u : 1u;
-            }
-        }
-
-        //NOTE: Should edit decrease durability? The story suggest that edit is a write, but does not directly state it. Additionally, would an @ be a capital letter?
-        // Assuming there is durability loss the case then when out of durability the pencil would simply stop editing leaving overwritten characters untouched?
-        // With confirmation, WriteOn and EditOn becomes a single method that takes in an option parameter of start position
-        public void EditOn<T>(int startIndex, string text, T surface) where T: ISurface
-        {
-            var existingText = surface.Show();
-            for (var i = 0; i < text.Length; i++)
-            {
-                var pos = startIndex + i;
-                var collisionCharacter = existingText[pos];
-                surface.Write(char.IsWhiteSpace(collisionCharacter) ? text[i] : '@', pos);
             }
         }
     }
