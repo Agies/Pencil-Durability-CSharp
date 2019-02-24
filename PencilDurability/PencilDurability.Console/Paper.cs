@@ -12,8 +12,16 @@ namespace PencilDurability.Console
             _buffer = new StringBuilder(pretext);
         }
         
-        public void Write(char text, uint? position = null)
+        public void Write(char text, int? position = null)
         {
+            if (position != null)
+            {
+                if (position > _buffer.Length)
+                {
+                    _buffer.Append("".PadRight(position.Value - (_buffer.Length)));
+                }
+            }
+
             _buffer.Append(text);
         }
 

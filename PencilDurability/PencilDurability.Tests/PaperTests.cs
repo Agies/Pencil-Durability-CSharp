@@ -67,5 +67,13 @@ namespace PencilDurability.Tests
             _sut.Replace('B', 10);
             Assert.Equal("An        B", _sut.Show());
         }
+
+        [Fact]
+        public void GivenASheetOfPaper_WhenWriteIsCalledWithAPosition_ThenTheCharacterIsWrittenInThePosition()
+        {
+            _sut = new Paper();
+            _sut.Write('L', 12);
+            Assert.Equal("            L", _sut.Show());
+        }
     }
 }

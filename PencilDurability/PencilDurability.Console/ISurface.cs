@@ -2,6 +2,6 @@ namespace PencilDurability.Console
 {
     public interface ISurface
     {
-        void Write(char text, uint? position = null);
+        void Write(char text, int? position = null);
     }
 }
