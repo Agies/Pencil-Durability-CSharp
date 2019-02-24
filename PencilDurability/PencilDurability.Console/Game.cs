@@ -37,10 +37,6 @@ namespace PencilDurability.Console
             {
                 _output.WriteLine(Examine);
             }
-            else if (answer == "Q")
-            {
-                
-            }
         }
 
         private string Examine =>
