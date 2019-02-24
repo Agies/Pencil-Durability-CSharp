@@ -14,8 +14,7 @@ namespace PencilDurability.Tests
         private readonly Mock<IDevice> _mockDevice;
         private const string LookAtPaper = "You look at the simple sheet of paper and read the text written.\n\n";
 
-        private const string IntroText =
-            "You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil";
+        private const string IntroText = Game.Intro;
 
         public GameTests()
         {
@@ -63,9 +62,7 @@ namespace PencilDurability.Tests
             _mockDevice.Setup(t => t.Examine()).Returns("Hello");
             _sut.Start();
             _mockDevice.Verify(t => t.Examine());
-            _mockOutput.Verify(t =>
-                t.WriteLine(
-                    "You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\nHello"));
+            _mockOutput.Verify(t => t.WriteLine(string.Format(Game.Examine, "Hello")));
         }
 
         [Fact]
@@ -108,6 +105,16 @@ namespace PencilDurability.Tests
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(3));
+        }
+        
+        [Fact]
+        public void
+            GivenAGameIsStarted_WhenAnAnswerIsTwo_ThenTheUserShouldBePromptedForAnActionWithThePencil()
+        {
+            var sequence = new MockSequence();
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
+            _sut.Start();
+            _mockInput.Verify(t => t.ReadLine(), Times.Exactly(2));         
         }
 
         [Fact]

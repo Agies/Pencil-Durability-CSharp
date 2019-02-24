@@ -42,21 +42,29 @@ namespace PencilDurability.Console
 
                 if (answer == "2")
                 {
-                    _output.WriteLine(Examine);
+                    var examineResult = string.Format(Examine, _device.Examine());
+                    _output.WriteLine(examineResult);
+                    _input.ReadLine();
                 }
 
                 break;
             }
         }
 
-        private string Examine =>
-            $"You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\n{_device.Examine()}";
+        public const string Examine =
+            "You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\n{0}\n\n" +
+            "What would you like to do?\n" +
+            "1) Write\n" +
+            "2) Erase\n" +
+            "3) Sharpen\n" +
+            "Q) Quit";
 
-        private const string Intro =
+        public const string Intro =
             "You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\n" +
             "What would you like to do?\n" +
             "1) Read the paper\n" +
-            "2) Look at pencil";
+            "2) Look at pencil\n" +
+            "Q) Quit";
 
         private string Reading =>
             $"You look at the simple sheet of paper and read the text written.\n\n{_surface.Show()}";
