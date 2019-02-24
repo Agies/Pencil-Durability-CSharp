@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using System.Linq.Expressions;
 using Moq;
 using PencilDurability.Console;
 using Xunit;
@@ -12,7 +14,6 @@ namespace PencilDurability.Tests
         private Mock<TextReader> _mockInput;
         private readonly Mock<ISurface> _mockSurface;
         private readonly Mock<IDevice> _mockDevice;
-        private const string LookAtPaper = "You look at the simple sheet of paper and read the text written.\n\n";
 
         private const string IntroText = Game.Intro;
 
@@ -28,8 +29,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGame_WhenStarted_ThenShouldPrintIntro()
         {
-            _mockInput.Setup(t => t.ReadLine()).Returns("1");
-            _mockInput.Setup(t => t.ReadLine()).Returns("Q");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "1");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.AtLeast(1));
         }
@@ -37,8 +37,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGame_WhenStarted_ThenShouldPromptForAnswer()
         {
-            _mockInput.Setup(t => t.ReadLine()).Returns("1");
-            _mockInput.Setup(t => t.ReadLine()).Returns("Q");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "1");
             _sut.Start();
             _mockInput.Verify(t => t.ReadLine());
         }
@@ -46,10 +45,8 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIsOne_ThenShouldReadSurface()
         {
-            MockSequence sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "1");
             _mockSurface.Setup(t => t.Show()).Returns("Hello");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
             _sut.Start();
             _mockSurface.Verify(t => t.Show());
             _mockOutput.Verify(t => t.WriteLine(string.Format(Game.Reading, "Hello")));
@@ -58,7 +55,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIsTwo_ThenShouldExaminePencil()
         {
-            _mockInput.Setup(t => t.ReadLine()).Returns("2");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2");
             _mockDevice.Setup(t => t.Examine()).Returns("Hello");
             _sut.Start();
             _mockDevice.Verify(t => t.Examine());
@@ -68,9 +65,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIsNotOneOrTwo_ThenItShouldRepeatTheQuestion()
         {
-            MockSequence sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("3");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "3");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
         }
@@ -78,9 +73,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIsOne_ThenTheUserShouldBePromptedForTheNextAction()
         {
-            var sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "1");
             _sut.Start();
             _mockInput.Verify(t => t.ReadLine(), Times.Exactly(2));
         }
@@ -88,6 +81,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIsOne_ThenTheUserShouldBeAskedForTheNextAction()
         {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "1");
             var sequence = new MockSequence();
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
@@ -99,10 +93,7 @@ namespace PencilDurability.Tests
         public void
             GivenAGameIsStarted_WhenAnAnswerIsOne_ThenTheUserShouldBeAskedForTheNextActionAndActionsShouldRepeat()
         {
-            var sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("3");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "1", "3");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(3));
         }
@@ -111,8 +102,7 @@ namespace PencilDurability.Tests
         public void
             GivenAGameIsStarted_WhenAnAnswerIsTwo_ThenTheUserShouldBePromptedForAnActionWithThePencil()
         {
-            var sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2");
             _sut.Start();
             _mockInput.Verify(t => t.ReadLine(), Times.Exactly(2));
         }
@@ -141,7 +131,7 @@ namespace PencilDurability.Tests
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(1));
             _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
         }
-        
+
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIsq_ThenTheGameWillQuit()
         {
@@ -154,23 +144,36 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIs2Then4_ThenTheGameWillReturnToIntro()
         {
-            var sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("4");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "4");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
         }
-        
+
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIs2ThenQ_ThenTheGameWillQuit()
         {
-            var sequence = new MockSequence();
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
-            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
         }
-        
+
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenNotAnAvailableChoice_ThenTheGameWillReprompt()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "G");
+            _sut.Start();
+            _mockOutput.Verify(t => t.WriteLine(string.Format(Game.Examine, "")), Times.Exactly(2));
+        }
+
+        private static void InSequenceAndQuit<T>(Mock<T> mock, Expression<Func<T, string>> setup, params string[] args)
+            where T : class
+        {
+            var sequence = new MockSequence();
+            foreach (var arg in args)
+            {
+                mock.InSequence(sequence).Setup(setup).Returns(arg);
+            }
+            mock.InSequence(sequence).Setup(setup).Returns("Q");
+        }
     }
 }

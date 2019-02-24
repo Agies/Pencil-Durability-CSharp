@@ -1,5 +1,7 @@
+using System;
 using System.IO;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PencilDurability.Console
 {
@@ -9,6 +11,8 @@ namespace PencilDurability.Console
         private readonly TextReader _input;
         private readonly ISurface _surface;
         private readonly IDevice _device;
+
+        private const string QuitCommands = "qQ";
 
         public Game(TextWriter output, TextReader input, ISurface surface, IDevice device)
         {
@@ -43,10 +47,7 @@ namespace PencilDurability.Console
 
                 if (answer == "2")
                 {
-                    var examineResult = string.Format(Examine, _device.Examine());
-                    _output.WriteLine(examineResult);
-                    answer = _input.ReadLine();
-                    if (answer == "4")
+                    if (ExaminePath() == Flow.Continue)
                     {
                         continue;
                     }
@@ -56,6 +57,31 @@ namespace PencilDurability.Console
             }
 
             _output.WriteLine(Exit);
+        }
+
+        private Flow ExaminePath()
+        {
+            while (true)
+            {
+                var examineResult = string.Format(Examine, _device.Examine());
+                _output.WriteLine(examineResult);
+                var answer = _input.ReadLine();
+                if (answer == "4")
+                {
+                    return Flow.Continue;
+                }
+
+                if (QuitCommands.Contains(answer))
+                {
+                    return Flow.Break;
+                }
+            }
+        }
+
+        enum Flow
+        {
+            Continue,
+            Break
         }
 
         public const string Examine =
