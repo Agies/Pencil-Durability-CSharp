@@ -123,11 +123,12 @@ namespace PencilDurability.Tests
             _mockInput = new Mock<TextReader>(MockBehavior.Strict);
             _mockOutput = new Mock<TextWriter>(MockBehavior.Strict);
             var sequence = new MockSequence();
-            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(IntroText));
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(Game.Intro));
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
             _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(LookAtPaper));
-            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(IntroText));
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(Game.Intro));
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(Game.Exit));
             _sut = new Game(_mockOutput.Object, _mockInput.Object, _mockSurface.Object, _mockDevice.Object);
             _sut.Start();
         }
@@ -138,6 +139,8 @@ namespace PencilDurability.Tests
             _mockInput.Setup(t => t.ReadLine()).Returns("Q");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(1));
+            _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
+
         }
 
         [Fact]

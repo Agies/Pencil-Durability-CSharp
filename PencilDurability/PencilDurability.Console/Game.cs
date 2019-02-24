@@ -49,11 +49,12 @@ namespace PencilDurability.Console
                     {
                         continue;
                     }
-                    _output.WriteLine(Exit);
                 }
 
                 break;
             }
+
+            _output.WriteLine(Exit);
         }
 
         public const string Examine =
