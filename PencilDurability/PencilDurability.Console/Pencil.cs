@@ -37,28 +37,28 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn<T>(string text, T erasable) where T: ISurface
+        public void EraseOn<T>(string text, T surface) where T: ISurface
         {
-            var startIndex = erasable.Show().LastIndexOf(text, StringComparison.Ordinal);
+            var startIndex = surface.Show().LastIndexOf(text, StringComparison.Ordinal);
             if (startIndex < 0) return;
             var length = text.Length - 1;
             for (var i = length; i >= 0; i--)
             {
                 if (EraserDurability == 0) return;
                 var character = text[i];
-                erasable.Erase(startIndex + i);
+                surface.Erase(startIndex + i);
                 EraserDurability -= char.IsWhiteSpace(character) ? 0u : 1u;
             }
         }
 
-        public void EditOn<T>(int startIndex, string text, T editable) where T: ISurface
+        public void EditOn<T>(int startIndex, string text, T surface) where T: ISurface
         {
-            var existingText = editable.Show();
+            var existingText = surface.Show();
             for (var i = 0; i < text.Length; i++)
             {
                 var pos = startIndex + i;
                 var collisionCharacter = existingText[pos];
-                editable.Write(char.IsWhiteSpace(collisionCharacter) ? text[i] : '@', pos);
+                surface.Write(char.IsWhiteSpace(collisionCharacter) ? text[i] : '@', pos);
             }
         }
     }
