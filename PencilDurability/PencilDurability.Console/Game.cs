@@ -57,6 +57,7 @@ namespace PencilDurability.Console
             "1) Write\n" +
             "2) Erase\n" +
             "3) Sharpen\n" +
+            "4) Look at the desk\n" +
             "Q) Quit";
 
         public const string Intro =
