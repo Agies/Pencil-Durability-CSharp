@@ -30,6 +30,7 @@ namespace PencilDurability.Console
             if (answer == "1")
             {
                 _output.WriteLine(Reading);
+                _output.WriteLine(Intro);
                 _input.ReadLine();
             }
             else if (answer == "2")
