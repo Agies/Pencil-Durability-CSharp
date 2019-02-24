@@ -24,5 +24,12 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockOutput.Verify(t => t.Write("You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil"), Times.Once);
         }
+
+        [Fact]
+        public void GivenAGame_WhenStarted_ThenShouldPromptForAnswer()
+        {
+            _sut.Start();
+            _mockInput.Verify(t => t.ReadLine());
+        }
     }
 }

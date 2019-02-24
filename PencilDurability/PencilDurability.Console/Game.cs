@@ -18,6 +18,7 @@ namespace PencilDurability.Console
         public void Start()
         {
             _output.Write(Intro);
+            _input.ReadLine();
         }
 
         private const string Intro =
