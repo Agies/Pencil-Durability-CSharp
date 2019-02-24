@@ -44,7 +44,11 @@ namespace PencilDurability.Console
                 {
                     var examineResult = string.Format(Examine, _device.Examine());
                     _output.WriteLine(examineResult);
-                    _input.ReadLine();
+                    answer = _input.ReadLine();
+                    if (answer == "4")
+                    {
+                        continue;
+                    }
                 }
 
                 break;

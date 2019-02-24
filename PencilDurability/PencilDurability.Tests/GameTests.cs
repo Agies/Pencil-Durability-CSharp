@@ -106,7 +106,7 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(3));
         }
-        
+
         [Fact]
         public void
             GivenAGameIsStarted_WhenAnAnswerIsTwo_ThenTheUserShouldBePromptedForAnActionWithThePencil()
@@ -114,7 +114,7 @@ namespace PencilDurability.Tests
             var sequence = new MockSequence();
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
             _sut.Start();
-            _mockInput.Verify(t => t.ReadLine(), Times.Exactly(2));         
+            _mockInput.Verify(t => t.ReadLine(), Times.Exactly(2));
         }
 
         [Fact]
@@ -138,6 +138,17 @@ namespace PencilDurability.Tests
             _mockInput.Setup(t => t.ReadLine()).Returns("Q");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(1));
+        }
+
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2Then4_ThenTheGameWillReturnToIntro()
+        {
+            var sequence = new MockSequence();
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("4");
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            _sut.Start();
+            _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
         }
     }
 }
