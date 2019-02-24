@@ -51,6 +51,9 @@ namespace PencilDurability.Console
             }
         }
 
+        //NOTE: Should edit decrease durability? The story suggest that edit is a write, but does not directly state it. Additionally, would an @ be a capital letter?
+        // Assuming there is durability loss the case then when out of durability the pencil would simply stop editing leaving overwritten characters untouched?
+        // With confirmation, WriteOn and EditOn becomes a single method that takes in an option parameter of start position
         public void EditOn<T>(int startIndex, string text, T surface) where T: ISurface
         {
             var existingText = surface.Show();
