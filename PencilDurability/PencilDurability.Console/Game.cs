@@ -21,7 +21,7 @@ namespace PencilDurability.Console
         public void Start()
         {
             var answer = "";
-            var allowedAnswers = new string[] {"1", "2"};
+            var allowedAnswers = new[] {"1", "2"};
             do
             {
                 _output.WriteLine(Intro);
@@ -30,6 +30,7 @@ namespace PencilDurability.Console
             if (answer == "1")
             {
                 _output.WriteLine(Reading);
+                _input.ReadLine();
             }
             else if (answer == "2")
             {
