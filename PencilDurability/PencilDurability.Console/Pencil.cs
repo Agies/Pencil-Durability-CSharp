@@ -37,7 +37,7 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn<T>(string text, T erasable) where T: ISurface, IViewable
+        public void EraseOn<T>(string text, T erasable) where T: ISurface
         {
             var startIndex = erasable.Show().LastIndexOf(text, StringComparison.Ordinal);
             if (startIndex < 0) return;
@@ -51,7 +51,7 @@ namespace PencilDurability.Console
             }
         }
 
-        public void EditOn<T>(int startIndex, string text, T editable) where T: ISurface, IViewable
+        public void EditOn<T>(int startIndex, string text, T editable) where T: ISurface
         {
             var existingText = editable.Show();
             for (var i = 0; i < text.Length; i++)

@@ -4,5 +4,6 @@ namespace PencilDurability.Console
     {
         void Write(char text, int? position = null);
         void Erase(int position);
+        string Show();
     }
 }
