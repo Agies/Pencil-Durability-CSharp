@@ -36,7 +36,8 @@ namespace PencilDurability.Console
 
                 if (answer == "1")
                 {
-                    _output.WriteLine(Reading);
+                    var readingResult = string.Format(Reading, _surface.Show());
+                    _output.WriteLine(readingResult);
                     continue;
                 }
 
@@ -73,8 +74,7 @@ namespace PencilDurability.Console
             "2) Look at pencil\n" +
             "Q) Quit";
 
-        private string Reading =>
-            $"You look at the simple sheet of paper and read the text written.\n\n{_surface.Show()}";
+        public const string Reading = "You look at the simple sheet of paper and read the text written.\n\n{0}\n";
 
         public const string Exit = "Thank you for playing";
     }

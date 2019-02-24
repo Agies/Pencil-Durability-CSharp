@@ -52,7 +52,7 @@ namespace PencilDurability.Tests
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
             _sut.Start();
             _mockSurface.Verify(t => t.Show());
-            _mockOutput.Verify(t => t.WriteLine($"{LookAtPaper}Hello"));
+            _mockOutput.Verify(t => t.WriteLine(string.Format(Game.Reading, "Hello")));
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace PencilDurability.Tests
             var sequence = new MockSequence();
             _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(Game.Intro));
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
-            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(LookAtPaper));
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(string.Format(Game.Reading, "")));
             _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(Game.Intro));
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
             _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(Game.Exit));
