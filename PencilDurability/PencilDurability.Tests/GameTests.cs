@@ -100,6 +100,13 @@ namespace PencilDurability.Tests
             _sut = new Game(_mockOutput.Object, _mockInput.Object, _mockSurface.Object, _mockDevice.Object);
             _sut.Start();
         }
-        
+
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIsQ_ThenTheGameWillQuit()
+        {
+            _mockInput.Setup(t => t.ReadLine()).Returns("Q");
+            _sut.Start();
+            _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(1));
+        }
     }
 }
