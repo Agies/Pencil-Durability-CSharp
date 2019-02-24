@@ -8,7 +8,7 @@
 1) Review
 
 ## Notes
-* Editor used Rider, in my quick testing VS did not seem to have issues
+* The IDE I used was Rider, in my quick testing VS did not seem to have any issues
 * I tested the Run and Test on Windows and Mac, if you are reviewing on Linux it should work
 * For a more interesting Run experience `git checkout introduction_game`
 * I had a question about pencil degradation during editing, I added a note, but did not implement it
