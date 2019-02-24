@@ -15,9 +15,10 @@ namespace PencilDurability.Console
         {
             if (position != null)
             {
-                if (position > _buffer.Length)
+                var length = _buffer.Length - 1;
+                if (position > length)
                 {
-                    _buffer.Append("".PadRight(position.Value - (_buffer.Length - 1)));
+                    _buffer.Append("".PadRight(position.Value - length));
                 }
 
                 _buffer[position.Value] = text;

@@ -75,5 +75,21 @@ namespace PencilDurability.Tests
             _sut.Write('L', 12);
             Assert.Equal("            L", _sut.Show());
         }
+        
+        [Fact]
+        public void GivenASheetOfPaper_WhenWriteIsCalledWithLastPosition_ThenTheCharacterIsWrittenInThePosition()
+        {
+            _sut = new Paper("Testl");
+            _sut.Write('s', 4);
+            Assert.Equal("Tests", _sut.Show());
+        }
+        
+        [Fact]
+        public void GivenASheetOfPaper_WhenWriteIsCalledWithOnePastLastPosition_ThenTheCharacterIsWrittenInThePosition()
+        {
+            _sut = new Paper("Tests");
+            _sut.Write('s', 5);
+            Assert.Equal("Testss", _sut.Show());
+        }
     }
 }
