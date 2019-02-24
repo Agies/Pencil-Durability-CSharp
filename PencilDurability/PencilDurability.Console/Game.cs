@@ -20,22 +20,32 @@ namespace PencilDurability.Console
 
         public void Start()
         {
-            var answer = "";
-            var allowedAnswers = new[] {"1", "2", "Q"};
-            do
-            {
-                _output.WriteLine(Intro);
-            } while (!allowedAnswers.Contains((answer = _input.ReadLine())));
+            ExecuteIntro();
+        }
 
-            if (answer == "1")
+        private void ExecuteIntro()
+        {
+            while (true)
             {
-                _output.WriteLine(Reading);
-                _output.WriteLine(Intro);
-                _input.ReadLine();
-            }
-            else if (answer == "2")
-            {
-                _output.WriteLine(Examine);
+                var answer = "";
+                var allowedAnswers = new[] {"1", "2", "Q"};
+                do
+                {
+                    _output.WriteLine(Intro);
+                } while (!allowedAnswers.Contains((answer = _input.ReadLine())));
+
+                if (answer == "1")
+                {
+                    _output.WriteLine(Reading);
+                    continue;
+                }
+
+                if (answer == "2")
+                {
+                    _output.WriteLine(Examine);
+                }
+
+                break;
             }
         }
 
