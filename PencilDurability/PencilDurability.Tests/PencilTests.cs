@@ -27,35 +27,35 @@ namespace PencilDurability.Tests
         [Fact]
         public void GivenAPencilAndPaper_WhenInstructedToWriteASingleCharacterOfAString_ThenThePencilWillWriteOnThePaper()
         {
-            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 'S')));
+            _surfaceMoq.Setup(s => s.Write('S', null));
             _sut.WriteOn("S", _surfaceMoq.Object);
-            _surfaceMoq.Verify(s => s.Write(It.Is<char>(text => text == 'S')), Times.Once);
+            _surfaceMoq.Verify(s => s.Write('S', null), Times.Once);
         }
 
         [Fact]
         public void GivenAPencilAndPaper_WhenInstructedToWriteAStringOfCharacters_ThenThePencilWillWriteOnThePaper()
         {
             var sequence = new MockSequence();
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'S')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'h')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 's')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'l')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'l')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 's')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 's')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'a')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 's')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'h')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'l')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'l')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 's')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('S', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('h', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('e', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(' ', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('s', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('e', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('l', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('l', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('s', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(' ', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('s', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('e', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('a', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(' ', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('s', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('h', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('e', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('l', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('l', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('s', null));
             _sut.WriteOn("She sells sea shells", _surfaceMoq.Object);
         }
 
@@ -63,14 +63,14 @@ namespace PencilDurability.Tests
         public void GivenAPencilAndPaper_WhenInstructedToWriteAnEmptyString_ThenThePencilWillNotWrite()
         {
             _sut.WriteOn("", _surfaceMoq.Object);
-            _surfaceMoq.Verify(s => s.Write(It.IsAny<char>()), Times.Never);
+            _surfaceMoq.Verify(s => s.Write(It.IsAny<char>(), null), Times.Never);
         }
         
         [Fact]
         public void GivenAPencilAndPaper_WhenInstructedToWriteANull_ThenThePencilWillNotWrite()
         {
             _sut.WriteOn(null, _surfaceMoq.Object);
-            _surfaceMoq.Verify(s => s.Write(It.IsAny<char>()), Times.Never);
+            _surfaceMoq.Verify(s => s.Write(It.IsAny<char>(), null), Times.Never);
         }
 
         [Fact]
@@ -95,7 +95,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GiveAPencil_WhenCharactersAreWritten_ThenTheDurabilityWillReduce()
         {
-            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 's')));
+            _surfaceMoq.Setup(s => s.Write('s', null));
             _sut.WriteOn("s", _surfaceMoq.Object);
             Assert.Equal(99u, _sut.Durability);
         }
@@ -103,9 +103,9 @@ namespace PencilDurability.Tests
         [Fact]
         public void GiveAPencil_WhenWhitespaceCharactersAreWritten_ThenTheDurabilityWillNotReduce()
         {
-            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == '\t')));
-            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == '\n')));
-            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _surfaceMoq.Setup(s => s.Write('\t', null));
+            _surfaceMoq.Setup(s => s.Write('\n', null));
+            _surfaceMoq.Setup(s => s.Write(' ', null));
             _sut.WriteOn("\t\n ", _surfaceMoq.Object);
             Assert.Equal(100u, _sut.Durability);
         }
@@ -113,7 +113,7 @@ namespace PencilDurability.Tests
         [Fact]
         public void GiveAPencil_WhenAnUpperCaseCharacterIsWritten_ThenTheDurabilityWillReduceByTwo()
         {
-            _surfaceMoq.Setup(s => s.Write(It.Is<char>(text => text == 'S')));
+            _surfaceMoq.Setup(s => s.Write('S', null));
             _sut.WriteOn("S", _surfaceMoq.Object);
             Assert.Equal(98u, _sut.Durability);
         }
@@ -123,10 +123,10 @@ namespace PencilDurability.Tests
         {
             _sut = new Pencil(4);
             var sequence = new MockSequence();
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'T')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'x')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('T', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('e', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('x', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(' ', null));
             _sut.WriteOn("Text", _surfaceMoq.Object);
         }
         
@@ -135,11 +135,11 @@ namespace PencilDurability.Tests
         {
             _sut = new Pencil(4);
             var sequence = new MockSequence();
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'T')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'e')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == 'x')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
-            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(It.Is<char>(text => text == ' ')));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('T', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('e', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write('x', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(' ', null));
+            _surfaceMoq.InSequence(sequence).Setup(s => s.Write(' ', null));
             _sut.WriteOn("Texts", _surfaceMoq.Object);
             Assert.Equal(0u, _sut.Durability);
         }

@@ -12,7 +12,7 @@ namespace PencilDurability.Console
             _buffer = new StringBuilder(pretext);
         }
         
-        public void Write(char text)
+        public void Write(char text, uint? position = null)
         {
             _buffer.Append(text);
         }
