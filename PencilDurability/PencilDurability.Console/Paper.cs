@@ -1,9 +1,8 @@
-using System;
 using System.Text;
 
 namespace PencilDurability.Console
 {
-    public class Paper: ISurface, IErasable, IViewable
+    public class Paper: ISurface, IViewable
     {
         private readonly StringBuilder _buffer;
 

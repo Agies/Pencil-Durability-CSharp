@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Net.WebSockets;
 
 namespace PencilDurability.Console
 {
@@ -39,7 +37,7 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn<T>(string text, T erasable) where T: IErasable, IViewable
+        public void EraseOn<T>(string text, T erasable) where T: ISurface, IViewable
         {
             var startIndex = erasable.Show().LastIndexOf(text, StringComparison.Ordinal);
             if (startIndex < 0) return;

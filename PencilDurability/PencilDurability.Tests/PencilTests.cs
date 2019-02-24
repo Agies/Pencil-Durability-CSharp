@@ -4,7 +4,7 @@ using Xunit;
 
 namespace PencilDurability.Tests
 {
-    public interface IMockPaper: IErasable, IViewable, ISurface
+    public interface IMockPaper: IViewable, ISurface
     {
         
     }
