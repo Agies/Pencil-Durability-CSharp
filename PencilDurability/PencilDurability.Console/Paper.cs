@@ -3,7 +3,7 @@ using System.Text;
 
 namespace PencilDurability.Console
 {
-    public class Paper: ISurface, IErasable, IViewable, IEditable
+    public class Paper: ISurface, IErasable, IViewable
     {
         private readonly StringBuilder _buffer;
 
@@ -18,11 +18,15 @@ namespace PencilDurability.Console
             {
                 if (position > _buffer.Length)
                 {
-                    _buffer.Append("".PadRight(position.Value - (_buffer.Length)));
+                    _buffer.Append("".PadRight(position.Value - (_buffer.Length - 1)));
                 }
-            }
 
-            _buffer.Append(text);
+                _buffer[position.Value] = text;
+            }
+            else
+            {
+                _buffer.Append(text);
+            }
         }
 
         //TODO: need to discuss with PO, what if a non-pencil tries to erase parts of the page without text
@@ -35,15 +39,6 @@ namespace PencilDurability.Console
         public string Show()
         {
             return _buffer.ToString();
-        }
-
-        public void Replace(char text, int position)
-        {
-            if (position > _buffer.Length)
-            {
-                _buffer.Append("".PadRight(position - (_buffer.Length - 1)));
-            }
-            _buffer[position] = text;
         }
     }
 }

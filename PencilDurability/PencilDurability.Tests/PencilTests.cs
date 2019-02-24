@@ -4,7 +4,7 @@ using Xunit;
 
 namespace PencilDurability.Tests
 {
-    public interface IMockPaper: IErasable, IViewable, IEditable
+    public interface IMockPaper: IErasable, IViewable, ISurface
     {
         
     }
@@ -299,39 +299,39 @@ namespace PencilDurability.Tests
         public void GivenAPencil_WhenToldToEditAtAPositionWithText_ThenTheTextWillFillTheSpace()
         {
             _paperMock.Setup(t => t.Show()).Returns("           ");
-            _paperMock.Setup(t => t.Replace('T', 10));
+            _paperMock.Setup(t => t.Write('T', 10));
             _sut.EditOn(10, "T", _paperMock.Object);
-            _paperMock.Verify(t => t.Replace('T', 10));
+            _paperMock.Verify(t => t.Write('T', 10));
         }
         
         [Fact]
         public void GivenAPencil_WhenToldToEditAtAPositionWithAnyText_ThenTheTextWillFillTheSpace()
         {
             _paperMock.Setup(t => t.Show()).Returns("               ");
-            _paperMock.Setup(t => t.Replace('T', 10));
-            _paperMock.Setup(t => t.Replace('e', 11));
-            _paperMock.Setup(t => t.Replace('x', 12));
-            _paperMock.Setup(t => t.Replace('t', 13));
+            _paperMock.Setup(t => t.Write('T', 10));
+            _paperMock.Setup(t => t.Write('e', 11));
+            _paperMock.Setup(t => t.Write('x', 12));
+            _paperMock.Setup(t => t.Write('t', 13));
             _sut.EditOn(10, "Text", _paperMock.Object);
-            _paperMock.Verify(t => t.Replace('T', 10));
-            _paperMock.Verify(t => t.Replace('e', 11));
-            _paperMock.Verify(t => t.Replace('x', 12));
-            _paperMock.Verify(t => t.Replace('t', 13));
+            _paperMock.Verify(t => t.Write('T', 10));
+            _paperMock.Verify(t => t.Write('e', 11));
+            _paperMock.Verify(t => t.Write('x', 12));
+            _paperMock.Verify(t => t.Write('t', 13));
         }
         
         [Fact]
         public void GivenAPencil_WhenToldToEditAtAPositionWithAnyTextAndThereIsACollision_ThenTheTextWillBeAnAtSymbol()
         {
             _paperMock.Setup(t => t.Show()).Returns("          F  d");
-            _paperMock.Setup(t => t.Replace('@', 10));
-            _paperMock.Setup(t => t.Replace('e', 11));
-            _paperMock.Setup(t => t.Replace('x', 12));
-            _paperMock.Setup(t => t.Replace('@', 13));
+            _paperMock.Setup(t => t.Write('@', 10));
+            _paperMock.Setup(t => t.Write('e', 11));
+            _paperMock.Setup(t => t.Write('x', 12));
+            _paperMock.Setup(t => t.Write('@', 13));
             _sut.EditOn(10, "Text", _paperMock.Object);
-            _paperMock.Verify(t => t.Replace('@', 10));
-            _paperMock.Verify(t => t.Replace('e', 11));
-            _paperMock.Verify(t => t.Replace('x', 12));
-            _paperMock.Verify(t => t.Replace('@', 13));
+            _paperMock.Verify(t => t.Write('@', 10));
+            _paperMock.Verify(t => t.Write('e', 11));
+            _paperMock.Verify(t => t.Write('x', 12));
+            _paperMock.Verify(t => t.Write('@', 13));
         }
     }
 }

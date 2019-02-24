@@ -53,14 +53,14 @@ namespace PencilDurability.Console
             }
         }
 
-        public void EditOn<T>(int startIndex, string text, T editable) where T: IEditable, IViewable
+        public void EditOn<T>(int startIndex, string text, T editable) where T: ISurface, IViewable
         {
             var existingText = editable.Show();
             for (var i = 0; i < text.Length; i++)
             {
                 var pos = startIndex + i;
                 var collisionCharacter = existingText[pos];
-                editable.Replace(char.IsWhiteSpace(collisionCharacter) ? text[i] : '@', pos);
+                editable.Write(char.IsWhiteSpace(collisionCharacter) ? text[i] : '@', pos);
             }
         }
     }

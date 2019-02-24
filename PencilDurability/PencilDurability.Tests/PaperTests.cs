@@ -52,19 +52,19 @@ namespace PencilDurability.Tests
 
         [Fact]
         public void
-            GivenASheetOfPaperWithWritingOnIt_WhenReplaceIsCalled_ThenThenCharacterAtThePositionShouldBeSwapped()
+            GivenASheetOfPaperWithWritingOnIt_WhenWriteIsCalled_ThenThenCharacterAtThePositionShouldBeSwapped()
         {
             _sut = new Paper("An       a day keeps the doctor away");
-            _sut.Replace('B', 4);
+            _sut.Write('B', 4);
             Assert.Equal("An  B    a day keeps the doctor away", _sut.Show());
         }
         
         [Fact]
         public void
-            GivenASheetOfPaperWithWritingOnIt_WhenReplaceIsCalledPastTheCurrentPosition_ThenThenTheAdditionalCharactersAreAdded()
+            GivenASheetOfPaperWithWritingOnIt_WhenWriteIsCalledPastTheCurrentPosition_ThenThenTheAdditionalCharactersAreAdded()
         {
             _sut = new Paper("An");
-            _sut.Replace('B', 10);
+            _sut.Write('B', 10);
             Assert.Equal("An        B", _sut.Show());
         }
 
