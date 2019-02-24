@@ -7,11 +7,13 @@ namespace PencilDurability.Tests
 {
     public class GameTests
     {
-        private readonly Game _sut;
-        private readonly Mock<TextWriter> _mockOutput;
-        private readonly Mock<TextReader> _mockInput;
+        private Game _sut;
+        private Mock<TextWriter> _mockOutput;
+        private Mock<TextReader> _mockInput;
         private readonly Mock<ISurface> _mockSurface;
         private readonly Mock<IDevice> _mockDevice;
+        private const string LookAtPaper = "You look at the simple sheet of paper and read the text written.\n\n";
+        private const string IntroText = "You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil";
 
         public GameTests()
         {
@@ -27,7 +29,7 @@ namespace PencilDurability.Tests
         {
             _mockInput.Setup(t => t.ReadLine()).Returns("1");
             _sut.Start();
-            _mockOutput.Verify(t => t.WriteLine("You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil"), Times.AtLeast(1));
+            _mockOutput.Verify(t => t.WriteLine(IntroText), Times.AtLeast(1));
         }
 
         [Fact]
@@ -45,7 +47,7 @@ namespace PencilDurability.Tests
             _mockSurface.Setup(t => t.Show()).Returns("Hello");
             _sut.Start();
             _mockSurface.Verify(t => t.Show());
-            _mockOutput.Verify(t => t.WriteLine("You look at the simple sheet of paper and read the text written.\n\nHello"));
+            _mockOutput.Verify(t => t.WriteLine($"{LookAtPaper}Hello"));
         }
         
         [Fact]
@@ -65,7 +67,7 @@ namespace PencilDurability.Tests
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("3");
             _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
             _sut.Start();
-            _mockOutput.Verify(t => t.WriteLine("You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil"), Times.Exactly(2));
+            _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
         }
 
         [Fact]
@@ -81,7 +83,22 @@ namespace PencilDurability.Tests
         {
             _mockInput.Setup(t => t.ReadLine()).Returns("1");
             _sut.Start();
-            _mockOutput.Verify(t => t.WriteLine("You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\nWhat would you like to do?\n1) Read the paper\n2) Look at pencil"), Times.Exactly(2));
+            _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIsOne_ThenOrderShouldByMaintained()
+        {
+            _mockInput = new Mock<TextReader>(MockBehavior.Strict);
+            _mockOutput = new Mock<TextWriter>(MockBehavior.Strict);
+            var sequence = new MockSequence();
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(IntroText));
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(LookAtPaper));
+            _mockOutput.InSequence(sequence).Setup(t => t.WriteLine(IntroText));
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("1");
+            _sut = new Game(_mockOutput.Object, _mockInput.Object, _mockSurface.Object, _mockDevice.Object);
+            _sut.Start();
         }
         
     }
