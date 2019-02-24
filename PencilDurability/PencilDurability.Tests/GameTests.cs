@@ -11,13 +11,15 @@ namespace PencilDurability.Tests
         private readonly Mock<TextWriter> _mockOutput;
         private readonly Mock<TextReader> _mockInput;
         private readonly Mock<ISurface> _mockSurface;
+        private readonly Mock<IDevice> _mockDevice;
 
         public GameTests()
         {
             _mockOutput = new Mock<TextWriter>();
             _mockInput = new Mock<TextReader>();
             _mockSurface = new Mock<ISurface>();
-            _sut = new Game(_mockOutput.Object, _mockInput.Object, _mockSurface.Object);
+            _mockDevice = new Mock<IDevice>();
+            _sut = new Game(_mockOutput.Object, _mockInput.Object, _mockSurface.Object, _mockDevice.Object);
         }
 
         [Fact]
@@ -42,6 +44,16 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockSurface.Verify(t => t.Show());
             _mockOutput.Verify(t => t.Write("You look at the simple sheet of paper and read the text written.\n\nHello"));
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIsTwo_ThenShouldExaminePencil()
+        {
+            _mockInput.Setup(t => t.ReadLine()).Returns("2");
+            _mockDevice.Setup(t => t.Examine()).Returns("Hello");
+            _sut.Start();
+            _mockDevice.Verify(t => t.Examine());
+            _mockOutput.Verify(t => t.Write("You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\nHello"));
         }
     }
 }

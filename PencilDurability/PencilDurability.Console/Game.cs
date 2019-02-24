@@ -1,6 +1,4 @@
 using System.IO;
-using System.Net.WebSockets;
-using System.Reflection.Metadata.Ecma335;
 
 namespace PencilDurability.Console
 {
@@ -9,12 +7,14 @@ namespace PencilDurability.Console
         private readonly TextWriter _output;
         private readonly TextReader _input;
         private readonly ISurface _surface;
+        private readonly IDevice _device;
 
-        public Game(TextWriter output, TextReader input, ISurface surface)
+        public Game(TextWriter output, TextReader input, ISurface surface, IDevice device)
         {
             _output = output;
             _input = input;
             _surface = surface;
+            _device = device;
         }
 
         public void Start()
@@ -25,7 +25,14 @@ namespace PencilDurability.Console
             {
                 _output.Write(Reading);
             }
+            else if (answer == "2")
+            {
+                _output.Write(Examine);
+            }
         }
+
+        private string Examine =>
+            $"You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\n{_device.Examine()}";
 
         private const string Intro =
             "You see a simple sheet of paper sitting on a desk. A pencil sits across the paper. There appear to be words written on the paper.\n" +
