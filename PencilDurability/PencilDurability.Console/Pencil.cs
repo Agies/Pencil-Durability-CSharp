@@ -15,7 +15,7 @@ namespace PencilDurability.Console
             Length = length;
             EraserDurability = eraserDurability;
         }
-        
+
         public void WriteOn(string text, ISurface surface)
         {
             if (surface == null) throw new NothingToWriteOnException();
@@ -37,7 +37,7 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn<T>(string text, T surface) where T: ISurface
+        public void EraseOn<T>(string text, T surface) where T : ISurface
         {
             var startIndex = surface.Show().LastIndexOf(text, StringComparison.Ordinal);
             if (startIndex < 0) return;
@@ -53,8 +53,9 @@ namespace PencilDurability.Console
 
         //NOTE: Should edit decrease durability? The story suggest that edit is a write, but does not directly state it. Additionally, would an @ be a capital letter?
         // Assuming there is durability loss the case then when out of durability the pencil would simply stop editing leaving overwritten characters untouched?
-        // With confirmation, WriteOn and EditOn becomes a single method that takes in an option parameter of start position
-        public void EditOn<T>(int startIndex, string text, T surface) where T: ISurface
+        // With confirmation, WriteOn and EditOn become a single method that takes in an option parameter of start position
+        // https://github.com/Agies/Pencil-Durability-CSharp/tree/feature/editing_should_degrade
+        public void EditOn<T>(int startIndex, string text, T surface) where T : ISurface
         {
             var existingText = surface.Show();
             for (var i = 0; i < text.Length; i++)
@@ -66,11 +67,10 @@ namespace PencilDurability.Console
         }
     }
 
-    public class NothingToWriteOnException: Exception
+    public class NothingToWriteOnException : Exception
     {
-        public NothingToWriteOnException(): base("I have nothing on which to write!")
+        public NothingToWriteOnException() : base("I have nothing on which to write!")
         {
-            
         }
     }
 }
