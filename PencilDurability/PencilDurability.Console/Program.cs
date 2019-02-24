@@ -6,8 +6,7 @@ namespace PencilDurability.Console
     {
         static void Main(string[] args)
         {
-            //TODO: demonstrate the use of the pencil and paper through a standard text based game.
-            
+            new Game(System.Console.Out, System.Console.In, new Paper("She sells sea shells"), new Pencil());
         }
     }
 }

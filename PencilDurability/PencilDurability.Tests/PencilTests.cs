@@ -333,5 +333,11 @@ namespace PencilDurability.Tests
             _paperMock.Verify(t => t.Write('x', 12));
             _paperMock.Verify(t => t.Write('@', 13));
         }
+
+        [Fact]
+        public void GivenAPencil_WhenExamining_ThenTheStatsAreVisible()
+        {
+            Assert.Equal("Stats:\n############################\nDurability: 100\nLength: 20\nEraser Durability: 20\n############################", _sut.Examine());
+        }
     }
 }

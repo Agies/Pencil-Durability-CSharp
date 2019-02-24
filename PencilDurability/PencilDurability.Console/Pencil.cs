@@ -2,7 +2,7 @@ using System;
 
 namespace PencilDurability.Console
 {
-    public class Pencil
+    public class Pencil: IDevice
     {
         private readonly uint _initialDurability;
         public uint Durability { get; private set; }
@@ -64,6 +64,12 @@ namespace PencilDurability.Console
                 var collisionCharacter = existingText[pos];
                 surface.Write(char.IsWhiteSpace(collisionCharacter) ? text[i] : '@', pos);
             }
+        }
+
+        public string Examine()
+        {
+            return
+                $"Stats:\n############################\nDurability: {Durability}\nLength: {Length}\nEraser Durability: {EraserDurability}\n############################";
         }
     }
 
