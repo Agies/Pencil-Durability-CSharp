@@ -150,5 +150,16 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
         }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenQ_ThenTheGameWillQuit()
+        {
+            var sequence = new MockSequence();
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("2");
+            _mockInput.InSequence(sequence).Setup(t => t.ReadLine()).Returns("Q");
+            _sut.Start();
+            _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
+        }
+        
     }
 }
