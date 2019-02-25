@@ -68,12 +68,12 @@ namespace PencilDurability.Console
                 var examineResult = string.Format(Examine, _device.Examine());
                 _output.WriteLine(examineResult);
                 var answer = _input.ReadLine() ?? "";
-                if (answer.StartsWith("write", true, CultureInfo.InvariantCulture))
+                if (answer.StartsWith("write ", true, CultureInfo.InvariantCulture))
                 {
                     _device.WriteOn(answer.Substring(6), _surface);
                 }
 
-                if (answer.StartsWith("erase", true, CultureInfo.InvariantCulture))
+                if (answer.StartsWith("erase ", true, CultureInfo.InvariantCulture))
                 {
                     _device.EraseOn(answer.Substring(6), _surface);
                 }
