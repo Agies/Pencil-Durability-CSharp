@@ -15,6 +15,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{A5FF4ACF-CB5C-4AB2-9124-E4FCCCB527DC}"
 ProjectSection(SolutionItems) = preProject
 	..\README.md = ..\README.md
+	..\.travis.yml = ..\.travis.yml
 EndProjectSection
 EndProject
 Global
