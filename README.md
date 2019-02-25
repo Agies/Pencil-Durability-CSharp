@@ -13,5 +13,5 @@
 * I tested the Run and Test on Windows and Mac, if you are reviewing on Linux it should work
 * I had a question about pencil degradation during editing, I added a note, but did not implement it
 since the story did not explicitly say editing was a full write action and I don't have a PO to question.
-However, I did implement it just in case on a separate branch `git checkout editing_should_degrade`. I made one assumption about
+However, I did implement it just in case on a separate branch `git checkout feature/editing_should_degrade`. I made one assumption about
 the @ symbol being a standard character and not an uppercase character.  
