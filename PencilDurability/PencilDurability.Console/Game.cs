@@ -72,6 +72,12 @@ namespace PencilDurability.Console
                 {
                     _device.WriteOn(answer.Substring(6), _surface);
                 }
+
+                if (answer.StartsWith("erase", true, CultureInfo.InvariantCulture))
+                {
+                    _device.EraseOn(answer.Substring(6), _surface);
+                }
+
                 if (answer == "2")
                 {
                     return Flow.Continue;

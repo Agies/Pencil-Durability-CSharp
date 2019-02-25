@@ -37,7 +37,7 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn<T>(string text, T surface) where T : ISurface
+        public void EraseOn(string text, ISurface surface)
         {
             var startIndex = surface.Show().LastIndexOf(text, StringComparison.Ordinal);
             if (startIndex < 0) return;

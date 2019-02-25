@@ -164,6 +164,14 @@ namespace PencilDurability.Tests
             _sut.Start();
             _mockDevice.Verify(d => d.WriteOn("hello", _mockSurface.Object));
         }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenErase_ThenTheGameWillErase()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "erase hello");
+            _sut.Start();
+            _mockDevice.Verify(d => d.EraseOn("hello", _mockSurface.Object));
+        }
 
         [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIs2ThenNotAnAvailableChoice_ThenTheGameWillReprompt()
