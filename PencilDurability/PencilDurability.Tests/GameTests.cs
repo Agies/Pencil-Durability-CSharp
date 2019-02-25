@@ -198,6 +198,14 @@ namespace PencilDurability.Tests
         }
         
         [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEdit_ThenTheGameWillEditWithMultipleWords()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "edit 2 hello sally how's the sea?");
+            _sut.Start();
+            _mockDevice.Verify(d => d.EditOn(2, "hello sally how's the sea?", _mockSurface.Object));
+        }
+        
+        [Fact]
         public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEditWithoutText_ThenTheGameWillReprompt()
         {
             InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "edit 2");

@@ -81,11 +81,11 @@ namespace PencilDurability.Console
                 if (answer.StartsWith("edit ", true, CultureInfo.InvariantCulture))
                 {
                     var split = answer.Split();
-                    if (split.Length != 3 || !int.TryParse(split[1], out var position))
+                    if (split.Length < 3 || !int.TryParse(split[1], out var position))
                     {
                         return Flow.Continue;
                     }
-                    _device.EditOn(position, split[2], _surface);
+                    _device.EditOn(position, string.Join(' ', split.Skip(2)), _surface);
                 }
 
                 if (answer == "2")
