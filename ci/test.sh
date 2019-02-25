@@ -1,2 +1,1 @@
-cd PencilDurability/PencilDurability.Tests
-dotnet test -v n
+dotnet test PencilDurability.Tests

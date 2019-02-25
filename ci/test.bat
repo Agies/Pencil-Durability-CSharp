@@ -1,2 +1,1 @@
-cd PencilDurability\PencilDurability.Tests
-call dotnet test
+call dotnet test PencilDurability.Tests

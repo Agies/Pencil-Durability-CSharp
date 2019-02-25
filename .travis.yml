@@ -1,6 +1,6 @@
 language: csharp
-solution: PencilDurability/PencilDurability.sln
+solution: PencilDurability.sln
 mono: none
 dotnet: 2.1.301
 script: 
-  - /ci/test.bat
+  - dotnet test PencilDurability.Tests

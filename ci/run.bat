@@ -1,2 +1,2 @@
-cd PencilDurability\PencilDurability.Console
+cd PencilDurability.Console
 call dotnet run
