@@ -229,6 +229,14 @@ namespace PencilDurability.Tests
             _mockOutput.Verify(t => t.WriteLine(string.Format(Game.Examine, "")), Times.Exactly(2));
         }
 
+        [Fact]
+        public void GiveAGameIsStarted_WhenAnAnswerIs2Then1_ThenTheGameWillSharpenThePencil()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "1");
+            _sut.Start();
+            _mockDevice.Verify(d => d.Sharpen());
+        }
+
         private static void InSequenceAndQuit<T>(Mock<T> mock, Expression<Func<T, string>> setup, params string[] args)
             where T : class
         {

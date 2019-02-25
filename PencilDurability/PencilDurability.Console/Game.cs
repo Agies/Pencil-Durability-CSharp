@@ -87,7 +87,12 @@ namespace PencilDurability.Console
                     }
                     _device.EditOn(position, string.Join(' ', split.Skip(2)), _surface);
                 }
-
+                
+                if (answer == "1")
+                {
+                    _device.Sharpen();
+                }
+                
                 if (answer == "2")
                 {
                     return Flow.Continue;
