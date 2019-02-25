@@ -106,7 +106,7 @@ namespace PencilDurability.Console
             "2) Look at pencil\n" +
             "Q) Quit";
 
-        public const string Reading = "You look at the simple sheet of paper and read the text written.\n\n{0}\n";
+        public const string Reading = "You look at the simple sheet of paper and read the text written.\n\n{0}_\n";
 
         public const string Exit = "Thank you for playing";
     }
