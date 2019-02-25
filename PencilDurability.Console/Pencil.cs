@@ -2,7 +2,7 @@ using System;
 
 namespace PencilDurability.Console
 {
-    public class Pencil
+    public class Pencil: IDevice
     {
         private readonly uint _initialDurability;
         public uint Durability { get; private set; }
@@ -15,7 +15,6 @@ namespace PencilDurability.Console
             Length = length;
             EraserDurability = eraserDurability;
         }
-        
         public void WriteOn(string text, ISurface surface, int? startIndex = null)
         {
             if (surface == null) throw new NothingToWriteOnException();
@@ -47,7 +46,7 @@ namespace PencilDurability.Console
             Length--;
         }
 
-        public void EraseOn<T>(string text, T surface) where T: ISurface
+        public void EraseOn(string text, ISurface surface)
         {
             var startIndex = surface.Show().LastIndexOf(text, StringComparison.Ordinal);
             if (startIndex < 0) return;
@@ -60,13 +59,18 @@ namespace PencilDurability.Console
                 EraserDurability -= char.IsWhiteSpace(character) ? 0u : 1u;
             }
         }
+        
+        public string Examine()
+        {
+            return
+                $"Stats:\n############################\nDurability: {Durability}\nLength: {Length}\nEraser Durability: {EraserDurability}\n############################";
+        }
     }
 
-    public class NothingToWriteOnException: Exception
+    public class NothingToWriteOnException : Exception
     {
-        public NothingToWriteOnException(): base("I have nothing on which to write!")
+        public NothingToWriteOnException() : base("I have nothing on which to write!")
         {
-            
         }
     }
 }

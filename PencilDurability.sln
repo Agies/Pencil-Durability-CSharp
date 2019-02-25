@@ -6,15 +6,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PencilDurability.Tests", "P
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ci", "ci", "{1543FC30-4C22-4544-943D-21B3BBE4EE0F}"
 ProjectSection(SolutionItems) = preProject
-	..\ci\run.bat = ..\ci\run.bat
-	..\ci\run.sh = ..\ci\run.sh
-	..\ci\test.bat = ..\ci\test.bat
-	..\ci\test.sh = ..\ci\test.sh
+	ci\run.bat = ci\run.bat
+	ci\run.sh = ci\run.sh
+	ci\test.bat = ci\test.bat
+	ci\test.sh = ci\test.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "artifacts", "artifacts", "{A5FF4ACF-CB5C-4AB2-9124-E4FCCCB527DC}"
 ProjectSection(SolutionItems) = preProject
-	..\README.md = ..\README.md
+	.gitignore = .gitignore
+	README.md = README.md
+	.travis.yml = .travis.yml
 EndProjectSection
 EndProject
 Global

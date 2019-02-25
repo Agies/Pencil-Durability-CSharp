@@ -364,5 +364,11 @@ namespace PencilDurability.Tests
             _surfaceMoq.Verify(t => t.Write('x', 12));
             _surfaceMoq.Verify(t => t.Write('@', 13), Times.Never);
         }
+
+        [Fact]
+        public void GivenAPencil_WhenExamining_ThenTheStatsAreVisible()
+        {
+            Assert.Equal("Stats:\n############################\nDurability: 100\nLength: 20\nEraser Durability: 20\n############################", _sut.Examine());
+        }
     }
 }
