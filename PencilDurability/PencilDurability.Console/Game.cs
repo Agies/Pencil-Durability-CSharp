@@ -1,7 +1,9 @@
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Transactions;
 
 namespace PencilDurability.Console
 {
@@ -65,8 +67,12 @@ namespace PencilDurability.Console
             {
                 var examineResult = string.Format(Examine, _device.Examine());
                 _output.WriteLine(examineResult);
-                var answer = _input.ReadLine();
-                if (answer == "4")
+                var answer = _input.ReadLine() ?? "";
+                if (answer.StartsWith("write", true, CultureInfo.InvariantCulture))
+                {
+                    _device.WriteOn(answer.Substring(6), _surface);
+                }
+                if (answer == "2")
                 {
                     return Flow.Continue;
                 }
@@ -87,10 +93,10 @@ namespace PencilDurability.Console
         public const string Examine =
             "You look at what you now understand to be a magic pencil, its stats are revealed in your mind.\n\n{0}\n\n" +
             "What would you like to do?\n" +
-            "1) Write\n" +
-            "2) Erase\n" +
-            "3) Sharpen\n" +
-            "4) Look at the desk\n" +
+            "Type Write [Words]\n" +
+            "Type Erase [Word]\n" +
+            "1) Sharpen\n" +
+            "2) Look at the desk\n" +
             "Q) Quit";
 
         public const string Intro =

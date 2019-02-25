@@ -142,9 +142,9 @@ namespace PencilDurability.Tests
         }
 
         [Fact]
-        public void GivenAGameIsStarted_WhenAnAnswerIs2Then4_ThenTheGameWillReturnToIntro()
+        public void GivenAGameIsStarted_WhenAnAnswerIs2Then2_ThenTheGameWillReturnToIntro()
         {
-            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "4");
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "2");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(IntroText), Times.Exactly(2));
         }
@@ -155,6 +155,14 @@ namespace PencilDurability.Tests
             InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2");
             _sut.Start();
             _mockOutput.Verify(t => t.WriteLine(Game.Exit), Times.Exactly(1));
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenWrite_ThenTheGameWillWrite()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "write hello");
+            _sut.Start();
+            _mockDevice.Verify(d => d.WriteOn("hello", _mockSurface.Object));
         }
 
         [Fact]
