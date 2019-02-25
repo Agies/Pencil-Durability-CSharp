@@ -1,4 +1,4 @@
-# Pencil Durability
+# Pencil Durability [![Build Status](https://travis-ci.org/Agies/Pencil-Durability-CSharp.svg?branch=dev)](https://travis-ci.org/Agies/Pencil-Durability-CSharp)
 
 ## Requirements
 1) Install [Dotnet Core 2.*](https://dotnet.microsoft.com/download)
