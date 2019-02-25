@@ -182,11 +182,35 @@ namespace PencilDurability.Tests
         }
         
         [Fact]
-        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEraseWithoutTest_ThenTheGameWillReprompt()
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEraseWithoutText_ThenTheGameWillReprompt()
         {
             InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "erase");
             _sut.Start();
             _mockDevice.Verify(d => d.EraseOn(It.IsAny<string>(), _mockSurface.Object), Times.Never);
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEdit_ThenTheGameWillEditWithOneWord()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "edit 2 hello");
+            _sut.Start();
+            _mockDevice.Verify(d => d.EditOn(2, "hello", _mockSurface.Object));
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEditWithoutText_ThenTheGameWillReprompt()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "edit 2");
+            _sut.Start();
+            _mockDevice.Verify(d => d.EditOn(2, It.IsAny<string>(), _mockSurface.Object), Times.Never);
+        }
+        
+        [Fact]
+        public void GivenAGameIsStarted_WhenAnAnswerIs2ThenEditWithoutAValidNumber_ThenTheGameWillReprompt()
+        {
+            InSequenceAndQuit(_mockInput, t => t.ReadLine(), "2", "edit n");
+            _sut.Start();
+            _mockDevice.Verify(d => d.EditOn(It.IsAny<int>(), It.IsAny<string>(), _mockSurface.Object), Times.Never);
         }
 
         [Fact]

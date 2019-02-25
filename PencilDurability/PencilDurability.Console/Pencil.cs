@@ -55,7 +55,7 @@ namespace PencilDurability.Console
         // Assuming there is durability loss the case then when out of durability the pencil would simply stop editing leaving overwritten characters untouched?
         // With confirmation, WriteOn and EditOn become a single method that takes in an option parameter of start position
         // https://github.com/Agies/Pencil-Durability-CSharp/tree/feature/editing_should_degrade
-        public void EditOn<T>(int startIndex, string text, T surface) where T : ISurface
+        public void EditOn(int startIndex, string text, ISurface surface)
         {
             var existingText = surface.Show();
             for (var i = 0; i < text.Length; i++)

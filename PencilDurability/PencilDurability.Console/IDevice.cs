@@ -5,5 +5,6 @@ namespace PencilDurability.Console
         string Examine();
         void WriteOn(string text, ISurface surface);
         void EraseOn(string text, ISurface surface);
+        void EditOn(int position, string text, ISurface surface);
     }
 }

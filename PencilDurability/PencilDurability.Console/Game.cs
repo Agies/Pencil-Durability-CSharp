@@ -78,6 +78,16 @@ namespace PencilDurability.Console
                     _device.EraseOn(answer.Substring(6), _surface);
                 }
 
+                if (answer.StartsWith("edit ", true, CultureInfo.InvariantCulture))
+                {
+                    var split = answer.Split();
+                    if (split.Length != 3 || !int.TryParse(split[1], out var position))
+                    {
+                        return Flow.Continue;
+                    }
+                    _device.EditOn(position, split[2], _surface);
+                }
+
                 if (answer == "2")
                 {
                     return Flow.Continue;
@@ -101,6 +111,7 @@ namespace PencilDurability.Console
             "What would you like to do?\n" +
             "Type Write [Words]\n" +
             "Type Erase [Word]\n" +
+            "Type Edit [Position] [Words]\n" +
             "1) Sharpen\n" +
             "2) Look at the desk\n" +
             "Q) Quit";
